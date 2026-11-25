@@ -303,7 +303,7 @@
           <!-- Cheerful Bento Metrics Strip -->
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 mt-16 md:mt-20">
             <div class="bg-navy text-cream p-6 rounded-3xl border-2 border-navy shadow-sticker-beige hover:-translate-y-1 transition-transform">
-              <p class="text-3xl sm:text-4xl font-serif font-bold text-sun">8+</p>
+              <p class="text-3xl sm:text-4xl font-serif font-bold text-sun">9+</p>
               <p class="text-xs sm:text-sm font-semibold text-cream/90 mt-2">QA, UI/UX & Dev Projects</p>
             </div>
             <div class="bg-white p-6 rounded-3xl border-2 border-navy shadow-sticker-sm hover:-translate-y-1 transition-transform">
@@ -471,7 +471,7 @@
         <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
           <div class="flex flex-wrap gap-2 bg-white p-2 rounded-full border-2 border-navy shadow-sticker-sm">
             <button onclick="filterProjects('all')" data-project-filter="all" class="project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all bg-navy text-cream">
-              All Projects (8)
+              All Projects (9)
             </button>
             <button onclick="filterProjects('magang')" data-project-filter="magang" data-i18n="filterInternship" class="project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all text-navy hover:bg-beige">
               Pengalaman Magang (2)
@@ -480,7 +480,7 @@
               Manual & Automation QA (2)
             </button>
             <button onclick="filterProjects('uiux-dev')" data-project-filter="uiux-dev" class="project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all text-navy hover:bg-beige">
-              UI/UX & Development (4)
+              UI/UX & Development (5)
             </button>
           </div>
 
@@ -833,7 +833,7 @@
      */
     const PORTFOLIO_DATA = {
       projects: [
-        // --- Kategori: Pengalaman Magang ---
+        // --- Kategori: Pengalaman Magang (Terbaru ke Terlama) ---
         {
           id: 'maxchat-qa',
           category: 'magang',
@@ -850,8 +850,7 @@
           tags: ['Playwright', 'TypeScript', 'Postman', 'End-to-end Testing', 'GitHub', 'Notion', 'MS Word'],
           image: 'images/project-maxchat.jpg',
           images: [
-            'images/project-maxchat.jpg',
-            'images/project-maxchat-2.jpg'
+            'images/project-maxchat.jpg'
           ],
           links: []
         },
@@ -871,38 +870,14 @@
           tags: ['Figma', 'Design Systems', 'Responsive Layouts', 'UX Principles', 'UI/UX Design'],
           image: 'images/project-fahove.jpg',
           images: [
-            'images/project-fahove.jpg',
-            'images/project-fahove-2.jpg'
+            'images/project-fahove.jpg'
           ],
           links: [
             { label: 'Figma Prototype', url: 'https://www.figma.com/proto/WuVyJAlphCnY5YAUPm9HY6/Security?node-id=108-1312&t=t3itjnB14iNHBsgI-1', icon: 'figma', style: 'primary' }
           ]
         },
 
-        // --- Kategori: Manual & Automation QA ---
-        {
-          id: 'qpon-apps',
-          category: 'qa',
-          categoryLabel: 'Manual & Automation QA',
-          title: 'Qpon Apps',
-          period: 'Sep – Okt 2025',
-          role: 'Manual QA Tester & Bug Reporter',
-          description: 'Melakukan pengujian manual secara menyeluruh (functional & exploratory testing) pada fitur kupon dan transaksi aplikasi Qpon, menyusun skenario test case, serta mendokumentasikan bug report secara terstruktur untuk tim developer.',
-          highlights: [
-            'Penyusunan Test Case & Test Scenario komprehensif',
-            'Pelaporan Bug lengkap dengan langkah reproduksi & severity',
-            'Verifikasi perbaikan bug (Regression Testing)'
-          ],
-          tags: ['Manual Testing', 'Bug Reporting', 'Test Case', 'QA Documentation'],
-          image: 'images/project-qpon.png',
-          images: [
-            'images/project-qpon.png',
-            'images/project-qpon-2.jpeg'
-          ],
-          links: [
-            { label: 'Test Report / Doc', url: 'https://docs.google.com/spreadsheets/d/1ZNP6NWyZ_Funhp3Zx9GRZgdVIkqERfLGgHlsaHbx0Zg/edit?usp=sharing', icon: 'file-text', style: 'primary' }
-          ]
-        },
+        // --- Kategori: Manual & Automation QA (Terbaru ke Terlama) ---
         {
           id: 'sipres-jti-qa',
           category: 'qa',
@@ -927,53 +902,74 @@
             { label: 'Usability Report', url: 'https://docs.google.com/spreadsheets/d/1sCTtp3u2H6ZMTIW3pG9043EC8zY-9N1nsrVZcjblnrU/edit?gid=0#gid=0', icon: 'bar-chart-2', style: 'secondary' }
           ]
         },
-
-        // --- Kategori: UI/UX Design & Full Stack Development ---
         {
-          id: 'sitatib',
-          category: 'uiux-dev',
-          categoryLabel: 'UI/UX Design & Full Stack Development',
-          title: 'SiTatib (Sistem Tata Tertib)',
-          period: 'Agu – Des 2024',
-          role: 'Front-End Dev, UI/UX Designer & Tester',
-          description: 'Merancang antarmuka sistem pencatatan pelanggaran tata tertib mahasiswa berbasis web, mengimplementasikan tampilan Front-End menggunakan Pure PHP, serta melakukan pengujian fungsionalitas sistem sebelum dirilis.',
+          id: 'qpon-apps',
+          category: 'qa',
+          categoryLabel: 'Manual & Automation QA',
+          title: 'Qpon Apps',
+          period: 'Sep – Okt 2025',
+          role: 'Manual QA Tester & Bug Reporter',
+          description: 'Melakukan pengujian manual secara menyeluruh (functional & exploratory testing) pada fitur kupon dan transaksi aplikasi Qpon, menyusun skenario test case, serta mendokumentasikan bug report secara terstruktur untuk tim developer.',
           highlights: [
-            'Desain alur pengguna (User Flow) & UI bersih berbasis Figma',
-            'Implementasi antarmuka responsif dengan Pure PHP',
-            'Pengujian validasi input dan alur pelaporan'
+            'Penyusunan Test Case & Test Scenario komprehensif',
+            'Pelaporan Bug lengkap dengan langkah reproduksi & severity',
+            'Verifikasi perbaikan bug (Regression Testing)'
           ],
-          tags: ['Pure PHP', 'UI/UX Design', 'Front-End', 'Manual Testing'],
-          image: 'images/project-sitatib.png',
+          tags: ['Manual Testing', 'Bug Reporting', 'Test Case', 'QA Documentation'],
+          image: 'images/project-qpon.png',
           images: [
-            'images/project-sitatib.png',
-            'images/project-sitatib-2.jpeg'
+            'images/project-qpon.png',
+            'images/project-qpon-2.png'
           ],
           links: [
-            { label: 'GitHub', url: 'https://github.com/dzulfikar05/tatatertib', icon: 'github', style: 'primary' }
+            { label: 'Test Report / Doc', url: 'https://docs.google.com/spreadsheets/d/1ZNP6NWyZ_Funhp3Zx9GRZgdVIkqERfLGgHlsaHbx0Zg/edit?usp=sharing', icon: 'file-text', style: 'primary' }
+          ]
+        },
+
+        // --- Kategori: UI/UX Design & Full Stack Development (Terbaru ke Terlama) ---
+        {
+          id: 'edutrace',
+          category: 'uiux-dev',
+          categoryLabel: 'UI/UX Design & Full Stack Development',
+          title: 'EduTrace',
+          period: 'Mar – Jun 2026',
+          role: 'Project Manager & Full Stack Developer',
+          description: 'Proyek gabungan UI/UX Design dan Sistem Berbasis Pengetahuan (SBP) yang mengusung konsep penggabungan API ke dalam sistem. EduTrace digunakan untuk melacak risiko kebiasaan belajar yang negatif menjadi positif melalui solusi SBP serta memberikan rekomendasi teknik belajar yang cocok.',
+          highlights: [
+            'Penggabungan konsep UI/UX Design dan Sistem Berbasis Pengetahuan (SBP)',
+            'Integrasi API ke dalam sistem untuk pelacakan risiko kebiasaan belajar',
+            'Solusi SBP dan rekomendasi teknik belajar yang cocok untuk membentuk kebiasaan belajar positif'
+          ],
+          tags: ['Project Management', 'Full Stack', 'UI/UX Design', 'Sistem Berbasis Pengetahuan', 'API Integration'],
+          image: 'images/project-edutrace.jpg',
+          images: [
+            'images/project-edutrace.jpg',
+            'images/project-edutrace-2.jpg'
+          ],
+          links: [
+            { label: 'GitHub', url: 'https://github.com/kartika3juli15/', icon: 'github', style: 'primary' }
           ]
         },
         {
-          id: 'siakreditasi-sib',
+          id: 'guardly',
           category: 'uiux-dev',
           categoryLabel: 'UI/UX Design & Full Stack Development',
-          title: 'SIAKREDITASI D4 SIB',
-          period: 'Feb – Jun 2025',
-          role: 'UI/UX Designer & Front-End Developer',
-          description: 'Mendesain ulang pengalaman pengguna dan membangun tampilan antarmuka Front-End sistem manajemen dokumen akreditasi Program Studi D4 Sistem Informasi Bisnis berbasis framework Laravel.',
+          title: 'Guardly Security System',
+          period: 'Feb – Mar 2026',
+          role: 'UI/UX Designer (Mobile App)',
+          description: 'Merancang desain pengalaman dan antarmuka aplikasi mobile keamanan Guardly dengan fokus pada akses cepat fitur darurat, pemantauan real-time, dan hierarki visual kontras tinggi.',
           highlights: [
-            'Perancangan Dashboard manajemen borang akreditasi',
-            'Integrasi Blade Template responsif pada Laravel',
-            'Fokus pada kemudahan navigasi bagi dosen & tim akreditasi'
+            'Design System komponen mobile yang konsisten & modular',
+            'Prototipe interaktif alur pemantauan & notifikasi keamanan',
+            'Optimasi keterbacaan untuk situasi darurat'
           ],
-          tags: ['Laravel', 'UI/UX Design', 'Front-End', 'Figma'],
-          image: 'images/project-siakreditasi.png',
+          tags: ['UI/UX Design', 'Mobile App', 'Figma', 'Prototyping'],
+          image: 'images/project-guardly.jpeg',
           images: [
-            'images/project-siakreditasi.png',
-            'images/project-siakreditasi-2.png'
+            'images/project-guardly.jpeg'
           ],
           links: [
-            { label: 'GitHub', url: 'https://github.com/yusra202120/SistemAkreditasiSIB', icon: 'github', style: 'primary' },
-            { label: 'Figma Prototype', url: 'https://www.figma.com/proto/1zwNZr1DrcYPV9P6U5XlpJ/PBL-SMT-4?node-id=1003-79&t=3pwxHuDvpw2NvFV5-1', icon: 'figma', style: 'secondary' }
+            { label: 'Figma Prototype', url: 'https://www.figma.com/proto/WuVyJAlphCnY5YAUPm9HY6/Security?node-id=108-1312&t=t3itjnB14iNHBsgI-1', icon: 'figma', style: 'primary' }
           ]
         },
         {
@@ -1001,26 +997,50 @@
           ]
         },
         {
-          id: 'guardly',
+          id: 'siakreditasi-sib',
           category: 'uiux-dev',
           categoryLabel: 'UI/UX Design & Full Stack Development',
-          title: 'Guardly Security System',
-          period: 'Feb – Mar 2026',
-          role: 'UI/UX Designer (Mobile App)',
-          description: 'Merancang desain pengalaman dan antarmuka aplikasi mobile keamanan Guardly dengan fokus pada akses cepat fitur darurat, pemantauan real-time, dan hierarki visual kontras tinggi.',
+          title: 'SIAKREDITASI D4 SIB',
+          period: 'Feb – Jun 2025',
+          role: 'UI/UX Designer & Front-End Developer',
+          description: 'Mendesain ulang pengalaman pengguna dan membangun tampilan antarmuka Front-End sistem manajemen dokumen akreditasi Program Studi D4 Sistem Informasi Bisnis berbasis framework Laravel.',
           highlights: [
-            'Design System komponen mobile yang konsisten & modular',
-            'Prototipe interaktif alur pemantauan & notifikasi keamanan',
-            'Optimasi keterbacaan untuk situasi darurat'
+            'Perancangan Dashboard manajemen borang akreditasi',
+            'Integrasi Blade Template responsif pada Laravel',
+            'Fokus pada kemudahan navigasi bagi dosen & tim akreditasi'
           ],
-          tags: ['UI/UX Design', 'Mobile App', 'Figma', 'Prototyping'],
-          image: 'images/project-guardly.jpeg',
+          tags: ['Laravel', 'UI/UX Design', 'Front-End', 'Figma'],
+          image: 'images/project-siakreditasi.jpg',
           images: [
-            'images/project-guardly.jpeg',
-            'images/project-guardly-2.png'
+            'images/project-siakreditasi.jpg',
+            'images/project-siakreditasi-2.jpg'
           ],
           links: [
-            { label: 'Figma Prototype', url: 'https://www.figma.com/proto/WuVyJAlphCnY5YAUPm9HY6/Security?node-id=108-1312&t=t3itjnB14iNHBsgI-1', icon: 'figma', style: 'primary' }
+            { label: 'GitHub', url: 'https://github.com/yusra202120/SistemAkreditasiSIB', icon: 'github', style: 'primary' },
+            { label: 'Figma Prototype', url: 'https://www.figma.com/proto/1zwNZr1DrcYPV9P6U5XlpJ/PBL-SMT-4?node-id=1003-79&t=3pwxHuDvpw2NvFV5-1', icon: 'figma', style: 'secondary' }
+          ]
+        },
+        {
+          id: 'sitatib',
+          category: 'uiux-dev',
+          categoryLabel: 'UI/UX Design & Full Stack Development',
+          title: 'SiTatib (Sistem Tata Tertib)',
+          period: 'Agu – Des 2024',
+          role: 'Front-End Dev, UI/UX Designer & Tester',
+          description: 'Merancang antarmuka sistem pencatatan pelanggaran tata tertib mahasiswa berbasis web, mengimplementasikan tampilan Front-End menggunakan Pure PHP, serta melakukan pengujian fungsionalitas sistem sebelum dirilis.',
+          highlights: [
+            'Desain alur pengguna (User Flow) & UI bersih berbasis Figma',
+            'Implementasi antarmuka responsif dengan Pure PHP',
+            'Pengujian validasi input dan alur pelaporan'
+          ],
+          tags: ['Pure PHP', 'UI/UX Design', 'Front-End', 'Manual Testing'],
+          image: 'images/project-sitatib.png',
+          images: [
+            'images/project-sitatib.png',
+            'images/project-sitatib-2.jpeg'
+          ],
+          links: [
+            { label: 'GitHub', url: 'https://github.com/dzulfikar05/tatatertib', icon: 'github', style: 'primary' }
           ]
         }
       ],
@@ -1127,7 +1147,7 @@
           image: 'images/lomba-pimnas5.png',
           images: [
             'images/lomba-pimnas5.png',
-            'images/lomba-pimnas5-2.jpg'
+            'images/lomba-pimnas5-2.png'
           ],
           featured: true,
           links: [
@@ -1161,8 +1181,7 @@
           description: 'Berpartisipasi dalam kompetisi inovasi bisnis dan desain UI/UX tingkat nasional di Pradita University, mengasah kemampuan problem solving berbasis riset pengguna dan kelayakan bisnis.',
           image: 'images/lomba-bizznovation.jpg',
           images: [
-            'images/lomba-bizznovation.jpg',
-            'images/lomba-bizznovation-2.jpg'
+            'images/lomba-bizznovation.jpg'
           ],
           featured: false,
           links: [
@@ -1479,6 +1498,14 @@
             'Consistent and modular mobile component Design System',
             'Interactive prototype for security monitoring & alert flows',
             'Optimized readability for emergency situations'
+          ]
+        },
+        'edutrace': {
+          description: 'A combined UI/UX Design and Knowledge-Based System (KBS) project built around integrating APIs into the system. EduTrace tracks negative study habit risks and transforms them into positive habits through KBS solutions and tailored study technique recommendations.',
+          highlights: [
+            'Combined UI/UX Design with a Knowledge-Based System (KBS)',
+            'Integrated APIs into the system to track study habit risks',
+            'Delivered KBS-driven solutions and tailored study technique recommendations'
           ]
         }
       },
