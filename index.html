@@ -1,0 +1,2675 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kartika Tri Juliana (Tika) — QA Engineer, UI/UX Designer & Event Management</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans (ramah), Fraunces (editorial ceria), & Caveat (tulisan tangan personal) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              DEFAULT: '#0B2545',
+              light: '#163B6B',
+              dark: '#071930',
+            },
+            cream: {
+              DEFAULT: '#FAF6F0',
+              dark: '#F3ECE1',
+            },
+            beige: {
+              DEFAULT: '#E5DEC9',
+              dark: '#D4C9AC',
+            },
+            sun: '#F7C948',
+            coral: '#F48C72',
+            mint: '#9AE0C6',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['Fraunces', 'serif'],
+            hand: ['Caveat', 'cursive'],
+          },
+          boxShadow: {
+            sticker: '4px 4px 0px #0B2545',
+            'sticker-sm': '3px 3px 0px #0B2545',
+            'sticker-beige': '6px 6px 0px #E5DEC9',
+            'sticker-sun': '5px 5px 0px #F7C948',
+            soft: '0 12px 30px -10px rgba(11, 37, 69, 0.1)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Transisi halus & bouncy antar-halaman */
+    .page-section {
+      display: none;
+      animation: popSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .page-section.active {
+      display: block;
+    }
+    @keyframes popSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(-2deg); }
+      50% { transform: translateY(-6px) rotate(1deg); }
+    }
+    .animate-float {
+      animation: floatSlow 4.5s ease-in-out infinite;
+    }
+    /* Tekstur kertas notebook lembut ala kanvas kreatif */
+    .paper-bg {
+      background-color: #FAF6F0;
+      background-image: radial-gradient(rgba(11, 37, 69, 0.08) 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+    }
+    /* Efek selotip washi tape untuk foto Polaroid */
+    .washi-tape {
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(247, 201, 72, 0.85),
+        rgba(247, 201, 72, 0.85) 8px,
+        rgba(229, 222, 201, 0.9) 8px,
+        rgba(229, 222, 201, 0.9) 16px
+      );
+      box-shadow: 0 2px 6px rgba(11, 37, 69, 0.12);
+    }
+    /* Efek tombol taktil saat ditekan */
+    .btn-tactile {
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    }
+    .btn-tactile:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px #0B2545;
+    }
+    .btn-tactile:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #0B2545;
+    }
+    /* Sembunyikan scrollbar agar marquee tools & slider foto terlihat rapi */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="paper-bg text-navy font-sans antialiased selection:bg-sun selection:text-navy min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- ==================== STICKY FLOATING HEADER / NAVIGATION BAR ==================== -->
+  <header class="sticky top-0 z-50 px-3 sm:px-6 pt-3 pb-2 pointer-events-none">
+    <div class="max-w-7xl mx-auto pointer-events-auto">
+      <div class="bg-cream/95 backdrop-blur-md border-2 border-navy rounded-full px-4 sm:px-6 h-16 flex items-center justify-between shadow-sticker-sm">
+        <!-- Brand / Logo Ceria -->
+        <button onclick="navigateTo('home')" class="flex items-center gap-3 group focus:outline-none text-left">
+          <div class="w-10 h-10 rounded-full bg-sun border-2 border-navy text-navy flex items-center justify-center font-serif font-bold text-lg group-hover:rotate-12 transition-transform">
+            T!
+          </div>
+          <div class="hidden sm:block">
+            <p class="font-serif font-bold text-navy leading-none text-base tracking-tight">Kartika Tri Juliana</p>
+          </div>
+        </button>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-1" aria-label="Navigasi Utama">
+          <button data-nav="home" onclick="navigateTo('home')" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold transition-all">Home</button>
+          <button data-nav="projects" onclick="navigateTo('projects')" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold transition-all">Projects & Experience</button>
+          <button data-nav="organization" onclick="navigateTo('organization')" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold transition-all">Organization</button>
+          <button data-nav="competitions" onclick="navigateTo('competitions')" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold transition-all">Competitions</button>
+          <button data-nav="certificates" onclick="navigateTo('certificates')" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold transition-all">Certificates</button>
+          <button data-nav="contact" onclick="navigateTo('contact')" class="nav-btn px-4 py-2 rounded-full text-sm font-semibold transition-all">Contact</button>
+        </nav>
+
+        <!-- Language Switcher & Mobile Menu Toggle -->
+        <div class="flex items-center gap-2.5">
+          <!-- Multi-Language Dropdown (Indonesia & English) -->
+          <div class="relative" id="lang-switcher">
+            <button id="lang-btn" onclick="toggleLangMenu()" class="inline-flex items-center gap-2 bg-navy text-cream hover:bg-navy-light border-2 border-navy px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all hover:-translate-y-0.5 active:translate-y-0" aria-label="Pilih Bahasa" aria-expanded="false">
+              <span id="lang-btn-flag" class="text-base leading-none">🇮🇩</span>
+              <span id="lang-btn-label">Indonesia</span>
+              <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </button>
+
+            <div id="lang-menu" class="hidden absolute right-0 mt-2 w-40 bg-cream border-2 border-navy rounded-2xl p-1.5 shadow-sticker z-50">
+              <button onclick="setLanguage('id')" data-lang-option="id" class="lang-option-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-navy text-cream transition-colors">
+                <span class="text-base leading-none">🇮🇩</span>
+                <span>Indonesia</span>
+              </button>
+              <button onclick="setLanguage('en')" data-lang-option="en" class="lang-option-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-navy hover:bg-beige transition-colors mt-1">
+                <span class="text-base leading-none">🇬🇧</span>
+                <span>English</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Hamburger Button (Mobile & Tablet) -->
+          <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-full bg-beige border-2 border-navy text-navy hover:bg-sun transition-colors focus:outline-none" aria-label="Buka Menu">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Navigation -->
+      <div id="mobile-menu" class="hidden lg:hidden mt-2 bg-cream border-2 border-navy rounded-3xl p-3 space-y-1 shadow-sticker">
+        <button data-nav-mobile="home" onclick="navigateTo('home')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-2xl text-sm font-bold transition-colors">Home</button>
+        <button data-nav-mobile="projects" onclick="navigateTo('projects')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-2xl text-sm font-bold transition-colors">Projects & Experience</button>
+        <button data-nav-mobile="organization" onclick="navigateTo('organization')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-2xl text-sm font-bold transition-colors">Organization</button>
+        <button data-nav-mobile="competitions" onclick="navigateTo('competitions')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-2xl text-sm font-bold transition-colors">Competitions</button>
+        <button data-nav-mobile="certificates" onclick="navigateTo('certificates')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-2xl text-sm font-bold transition-colors">Certificates</button>
+        <button data-nav-mobile="contact" onclick="navigateTo('contact')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-2xl text-sm font-bold transition-colors">Contact</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="flex-grow">
+
+    <!-- ============================================================ -->
+    <!-- PAGE 1: HOME (BERANDA & PROFIL)                              -->
+    <!-- ============================================================ -->
+    <section id="page-home" class="page-section active">
+      <!-- Hero Section -->
+      <div class="relative pt-8 pb-16 md:pt-12 md:pb-24 overflow-hidden">
+        <!-- Dekorasi Organik Ceria -->
+        <svg class="hidden md:block absolute top-10 right-12 w-12 h-12 text-sun animate-pulse pointer-events-none" viewBox="0 0 48 48" fill="currentColor">
+          <path d="M24 2L28.5 19.5L46 24L28.5 28.5L24 46L19.5 28.5L2 24L19.5 19.5L24 2Z" />
+        </svg>
+        <svg class="hidden md:block absolute bottom-24 left-8 w-9 h-9 text-coral opacity-80 pointer-events-none" viewBox="0 0 48 48" fill="currentColor">
+          <path d="M24 4L28 20L44 24L28 28L24 44L20 28L4 24L20 20L24 4Z" />
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+            <!-- Hero Text -->
+            <div class="lg:col-span-7 space-y-6">
+              <!-- Cheerful Status Sticker -->
+              <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border-2 border-navy shadow-sticker-sm -rotate-1 hover:rotate-0 transition-transform">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping absolute"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 relative"></span>
+                <span class="text-xs sm:text-sm font-bold text-navy">Open for Internship, Projects & Fun Collabs!</span>
+              </div>
+
+              <div class="space-y-2">
+                <p data-i18n="heroGreeting" class="font-hand text-2xl sm:text-3xl font-bold text-navy/80">
+                  Halo, salam kenal! Aku...
+                </p>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-navy leading-[1.12]">
+                  Kartika Tri
+                  <span class="relative inline-block">
+                    Juliana
+                    <!-- Garis bawah coretan tangan -->
+                    <svg class="absolute -bottom-2 left-0 w-full h-3.5 text-sun -z-10" viewBox="0 0 220 14" fill="none" preserveAspectRatio="none">
+                      <path d="M3 10.5C58 3.5 162 2.5 217 9.5" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                  <span class="font-hand text-3xl sm:text-4xl lg:text-5xl text-navy/75 font-bold ml-1">(Tika)</span>
+                </h1>
+              </div>
+
+              <!-- Role Sticker Pills -->
+              <div class="flex flex-wrap gap-2.5 pt-1">
+                <span class="px-4 py-2 rounded-2xl bg-navy text-cream border-2 border-navy text-xs sm:text-sm font-bold shadow-sticker-sm -rotate-1 hover:rotate-0 transition-transform">
+                  Quality Assurance
+                </span>
+                <span class="px-4 py-2 rounded-2xl bg-sun text-navy border-2 border-navy text-xs sm:text-sm font-bold shadow-sticker-sm rotate-1 hover:rotate-0 transition-transform">
+                  UI/UX Designer
+                </span>
+                <span class="px-4 py-2 rounded-2xl bg-beige text-navy border-2 border-navy text-xs sm:text-sm font-bold shadow-sticker-sm -rotate-1 hover:rotate-0 transition-transform">
+                  Event Management
+                </span>
+              </div>
+
+              <p data-i18n-html="heroBio" class="text-navy/85 text-base sm:text-lg leading-relaxed max-w-2xl bg-white/70 backdrop-blur-sm p-5 rounded-3xl border-2 border-beige-dark">
+                Mahasiswi <strong>D4 Sistem Informasi Bisnis</strong> di Politeknik Negeri Malang yang senang berburu <em>bug</em> lewat <strong>Manual & Automation QA</strong>, merancang tampilan aplikasi yang nyaman digunakan, serta mengatur jalannya acara dan organisasi dengan rapi dan penuh semangat!
+              </p>
+
+              <!-- Hero CTA Buttons -->
+              <div class="flex flex-wrap items-center gap-4 pt-2">
+                <button onclick="navigateTo('projects')" class="btn-tactile inline-flex items-center gap-2.5 bg-navy text-cream border-2 border-navy px-7 py-3.5 rounded-full text-sm sm:text-base font-bold shadow-sticker">
+                  <span>Explore Projects</span>
+                  <i data-lucide="sparkles" class="w-4 h-4 text-sun"></i>
+                </button>
+                <button onclick="navigateTo('contact')" class="btn-tactile inline-flex items-center gap-2.5 bg-white text-navy border-2 border-navy px-7 py-3.5 rounded-full text-sm sm:text-base font-bold shadow-sticker">
+                  <span>Contact Me</span>
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Hero Profile Photo Card (Polaroid Scrapbook Style) -->
+            <div class="lg:col-span-5 flex justify-center lg:justify-end pt-4 lg:pt-0">
+              <div class="relative w-full max-w-sm">
+                <!-- Background Card Dekoratif -->
+                <div class="absolute inset-0 bg-beige border-2 border-navy rounded-[2rem] rotate-6 translate-x-2 translate-y-2"></div>
+
+                <!-- Washi Tape di Atas Foto -->
+                <div class="washi-tape absolute -top-4 left-1/2 -translate-x-1/2 w-28 h-8 -rotate-3 z-20 rounded-sm border border-navy/20"></div>
+
+                <!-- Polaroid Frame -->
+                <div class="relative bg-white p-4 pb-6 rounded-[2rem] border-2 border-navy shadow-sticker -rotate-2 hover:rotate-0 transition-transform duration-300 z-10">
+                  <div class="relative rounded-2xl overflow-hidden border-2 border-navy aspect-[4/4.5] bg-navy">
+                    <img
+                      src="images/foto-tika.jpeg"
+                      alt="Foto Profil Kartika Tri Juliana"
+                      onerror="this.onerror=null; this.src='https://placehold.co/480x540/0B2545/FAF6F0?text=Simpan+foto-tika.jpeg%0Adi+folder+images'"
+                      class="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  <!-- Polaroid Caption Tulisan Tangan -->
+                  <div class="mt-4 flex items-center justify-between px-1">
+                    <div>
+                      <p class="font-hand text-2xl font-bold text-navy leading-none">Hi, I'm Tika!</p>
+                    </div>
+                    <span class="px-3 py-1.5 rounded-full bg-sun/90 border-2 border-navy text-navy text-xs font-extrabold rotate-3 inline-flex items-center gap-1">
+                      <i data-lucide="map-pin" class="w-3.5 h-3.5 text-coral"></i>
+                      Malang, Indonesia
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Floating Sticker -->
+                <div class="animate-float absolute -bottom-5 -left-4 sm:-left-6 z-20 bg-mint border-2 border-navy px-4 py-2 rounded-2xl shadow-sticker-sm">
+                  <p class="text-xs font-extrabold text-navy">Detail-Oriented & Creative</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cheerful Bento Metrics Strip -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 mt-16 md:mt-20">
+            <div class="bg-navy text-cream p-6 rounded-3xl border-2 border-navy shadow-sticker-beige hover:-translate-y-1 transition-transform">
+              <p class="text-3xl sm:text-4xl font-serif font-bold text-sun">8+</p>
+              <p class="text-xs sm:text-sm font-semibold text-cream/90 mt-2">QA, UI/UX & Dev Projects</p>
+            </div>
+            <div class="bg-white p-6 rounded-3xl border-2 border-navy shadow-sticker-sm hover:-translate-y-1 transition-transform">
+              <p class="text-3xl sm:text-4xl font-serif font-bold text-navy">8+</p>
+              <p class="text-xs sm:text-sm font-semibold text-navy/75 mt-2">Organization & Committees</p>
+            </div>
+            <div class="bg-beige p-6 rounded-3xl border-2 border-navy shadow-sticker-sm hover:-translate-y-1 transition-transform">
+              <p class="text-3xl sm:text-4xl font-serif font-bold text-navy">3+</p>
+              <p class="text-xs sm:text-sm font-semibold text-navy/80 mt-2">National Competitions</p>
+            </div>
+            <div class="bg-sun/85 p-6 rounded-3xl border-2 border-navy shadow-sticker-sm hover:-translate-y-1 transition-transform">
+              <p class="text-3xl sm:text-4xl font-serif font-bold text-navy">14+</p>
+              <p class="text-xs sm:text-sm font-bold text-navy/85 mt-2">Verified Certificates</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div class="bg-white py-16 md:py-20 border-y-2 border-navy relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="font-hand text-3xl sm:text-4xl font-bold text-coral">My Learning Journey</span>
+            <h2 class="text-4xl sm:text-5xl font-serif font-bold text-navy mt-1">Education</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Polinema -->
+            <div class="group bg-cream p-7 rounded-[2rem] border-2 border-navy shadow-sticker hover:-translate-y-1 transition-all">
+              <div class="flex items-start justify-between gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-white p-1.5 border-2 border-navy flex items-center justify-center shrink-0 overflow-hidden group-hover:rotate-6 transition-transform">
+                  <img
+                    src="images/logo-polinema.png"
+                    alt="Logo Politeknik Negeri Malang"
+                    onerror="this.onerror=null; this.src='https://placehold.co/120x120/0B2545/FAF6F0?text=Polinema'"
+                    class="w-full h-full object-contain"
+                  />
+                </div>
+                <span class="px-4 py-1.5 rounded-full bg-sun border-2 border-navy text-navy text-xs font-extrabold">2023 – Present</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-serif font-bold text-navy mt-5">Politeknik Negeri Malang</h3>
+              <p data-i18n="eduPolinemaMajor" class="text-base font-bold text-navy/80 mt-1">D4 Sistem Informasi Bisnis</p>
+              <p data-i18n="eduPolinemaDesc" class="text-sm text-navy/75 mt-3 leading-relaxed">
+                Mendalami rekayasa perangkat lunak, pengujian kualitas sistem (QA), desain UI/UX, sekaligus aktif memimpin organisasi HMTI dan berkompetisi di tingkat nasional.
+              </p>
+            </div>
+
+            <!-- SMAN 6 Malang -->
+            <div class="group bg-beige/45 p-7 rounded-[2rem] border-2 border-navy shadow-sticker hover:-translate-y-1 transition-all">
+              <div class="flex items-start justify-between gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-white p-1.5 border-2 border-navy flex items-center justify-center shrink-0 overflow-hidden group-hover:-rotate-6 transition-transform">
+                  <img
+                    src="images/logo-sman6.jpg"
+                    alt="Logo SMA Negeri 6 Malang"
+                    onerror="this.onerror=null; this.src='https://placehold.co/120x120/0B2545/FAF6F0?text=SMAN+6'"
+                    class="w-full h-full object-contain"
+                  />
+                </div>
+                <span class="px-4 py-1.5 rounded-full bg-white border-2 border-navy text-navy text-xs font-extrabold">2020 – 2023</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-serif font-bold text-navy mt-5">SMA Negeri 6 Malang</h3>
+              <p data-i18n="eduSmanMajor" class="text-base font-bold text-navy/80 mt-1">Pendidikan Menengah Atas</p>
+              <p data-i18n="eduSmanDesc" class="text-sm text-navy/75 mt-3 leading-relaxed">
+                Tempat mengasah dasar berpikir logis, komunikasi publik, manajemen waktu, dan kerja sama tim sejak masa sekolah.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills & Tools Section -->
+      <div class="py-16 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="font-hand text-3xl sm:text-4xl font-bold text-navy/75">What's in my toolkit?</span>
+            <h2 class="text-4xl sm:text-5xl font-serif font-bold text-navy mt-1">Skills & Tools</h2>
+          </div>
+
+          <!-- Hard Skills & Soft Skills (2 Kolom Seimbang) -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Hard Skills -->
+            <div class="bg-navy text-cream p-8 rounded-[2rem] border-2 border-navy shadow-sticker-beige flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-sun text-navy border-2 border-navy flex items-center justify-center mb-5 -rotate-3">
+                  <i data-lucide="cpu" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold mb-2">Hard Skills</h3>
+                <p data-i18n="hardSkillsDesc" class="text-sm text-cream/75 mb-6">Keahlian inti yang jadi andalan di setiap proyek dan kegiatan.</p>
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3 bg-white/10 border border-white/15 px-4 py-3.5 rounded-2xl">
+                    <span class="font-semibold text-sm">Quality Assurance (Manual & Automation)</span>
+                  </div>
+                  <div class="flex items-center gap-3 bg-white/10 border border-white/15 px-4 py-3.5 rounded-2xl">
+                    <span class="font-semibold text-sm">UI/UX Design & Prototyping</span>
+                  </div>
+                  <div class="flex items-center gap-3 bg-white/10 border border-white/15 px-4 py-3.5 rounded-2xl">
+                    <span class="font-semibold text-sm">Event Management & Supervision</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="bg-white border-2 border-navy p-8 rounded-[2rem] shadow-sticker flex flex-col justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-coral text-navy border-2 border-navy flex items-center justify-center mb-5 rotate-3">
+                  <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-navy mb-2">Soft Skills</h3>
+                <p data-i18n="softSkillsDesc" class="text-sm text-navy/70 mb-6">Cara aku berkolaborasi dan membawa energi positif di dalam tim.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div class="bg-cream border-2 border-navy px-4 py-3.5 rounded-2xl flex items-center gap-2.5 hover:bg-sun/40 transition-colors">
+                    <i data-lucide="mic" class="w-4 h-4 text-navy shrink-0"></i>
+                    <span class="text-sm font-bold text-navy">Public Speaking</span>
+                  </div>
+                  <div class="bg-cream border-2 border-navy px-4 py-3.5 rounded-2xl flex items-center gap-2.5 hover:bg-mint/50 transition-colors">
+                    <i data-lucide="lightbulb" class="w-4 h-4 text-navy shrink-0"></i>
+                    <span class="text-sm font-bold text-navy">Problem Solving</span>
+                  </div>
+                  <div class="bg-cream border-2 border-navy px-4 py-3.5 rounded-2xl flex items-center gap-2.5 hover:bg-beige transition-colors">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-navy shrink-0"></i>
+                    <span class="text-sm font-bold text-navy">Adaptability</span>
+                  </div>
+                  <div class="bg-cream border-2 border-navy px-4 py-3.5 rounded-2xl flex items-center gap-2.5 hover:bg-coral/35 transition-colors">
+                    <i data-lucide="users" class="w-4 h-4 text-navy shrink-0"></i>
+                    <span class="text-sm font-bold text-navy">Teamwork</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools & Tech Marquee (Langsung tanpa kotak & header) -->
+          <div class="mt-10">
+            <div id="tools-marquee" class="overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing select-none py-3">
+              <div id="tools-marquee-track" class="flex items-center gap-4 w-max">
+                <!-- Item logo akan di-render otomatis dan diduplikasi oleh JavaScript agar loop mulus -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- PAGE 2: PROJECTS & EXPERIENCE                                -->
+    <!-- ============================================================ -->
+    <section id="page-projects" class="page-section">
+      <!-- Cheerful Rounded Banner -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div class="bg-navy text-cream rounded-[2.25rem] border-2 border-navy shadow-sticker-beige p-8 sm:p-12 relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-44 h-44 rounded-full bg-sun/20 blur-xl pointer-events-none"></div>
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-sun text-navy text-xs font-extrabold uppercase tracking-wider mb-4">
+            Portfolio Showcase
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-serif font-bold">Projects & Experience</h1>
+          <p data-i18n="projectsBannerDesc" class="text-cream/85 mt-3 max-w-2xl text-sm sm:text-base">
+            Kumpulan proyek pengujian perangkat lunak (Manual & Automation QA), perancangan antarmuka (UI/UX), serta pengembangan aplikasi web dan mobile.
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+        <!-- Filter Tabs & View Switcher -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+          <div class="flex flex-wrap gap-2 bg-white p-2 rounded-full border-2 border-navy shadow-sticker-sm">
+            <button onclick="filterProjects('all')" data-project-filter="all" class="project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all bg-navy text-cream">
+              All Projects (8)
+            </button>
+            <button onclick="filterProjects('magang')" data-project-filter="magang" data-i18n="filterInternship" class="project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all text-navy hover:bg-beige">
+              Pengalaman Magang (2)
+            </button>
+            <button onclick="filterProjects('qa')" data-project-filter="qa" class="project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all text-navy hover:bg-beige">
+              Manual & Automation QA (2)
+            </button>
+            <button onclick="filterProjects('uiux-dev')" data-project-filter="uiux-dev" class="project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all text-navy hover:bg-beige">
+              UI/UX & Development (4)
+            </button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <!-- Toggle View (Grid / Timeline) -->
+            <div class="inline-flex bg-white p-1.5 rounded-full border-2 border-navy shadow-sticker-sm">
+              <button onclick="setProjectView('grid')" id="btn-project-grid" class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all">
+                <i data-lucide="layout-grid" class="w-4 h-4"></i> Card Grid
+              </button>
+              <button onclick="setProjectView('timeline')" id="btn-project-timeline" class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all">
+                <i data-lucide="git-commit-vertical" class="w-4 h-4"></i> Timeline
+              </button>
+            </div>
+
+            <a href="https://github.com/kartika3juli15/" target="_blank" rel="noopener noreferrer" class="btn-tactile inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-beige border-2 border-navy text-sm font-bold text-navy shadow-sticker-sm">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="12" fill="#181717"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" transform="translate(2.4 2.4) scale(0.8)" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill="#FFFFFF"/>
+              </svg>
+              <span data-i18n="githubProfile">Profil GitHub</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Modular Project Grid / Timeline -->
+        <div id="projects-container" class="space-y-12"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- PAGE 3: ORGANIZATION                                         -->
+    <!-- ============================================================ -->
+    <section id="page-organization" class="page-section">
+      <!-- Cheerful Rounded Banner -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div class="bg-navy text-cream rounded-[2.25rem] border-2 border-navy shadow-sticker-beige p-8 sm:p-12 relative overflow-hidden">
+          <div class="absolute -right-8 -bottom-10 w-44 h-44 rounded-full bg-mint/20 blur-xl pointer-events-none"></div>
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-mint text-navy text-xs font-extrabold uppercase tracking-wider mb-4">
+            Leadership & Event Management
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-serif font-bold">Organization & Committees</h1>
+          <p data-i18n="orgBannerDesc" class="text-cream/85 mt-3 max-w-2xl text-sm sm:text-base">
+            Pengalaman kepemimpinan, supervisi, kesekretariatan, humas, serta manajemen acara dalam berbagai program kerja dan kepanitiaan kampus.
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+        <!-- Toggle View (Grid / Timeline) -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+          <p data-i18n="orgCountLabel" class="font-hand text-2xl font-bold text-navy">8 Pengalaman Organisasi & Kepanitiaan</p>
+          <div class="inline-flex bg-white p-1.5 rounded-full border-2 border-navy shadow-sticker-sm">
+            <button onclick="setOrgView('grid')" id="btn-org-grid" class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all">
+              <i data-lucide="layout-grid" class="w-4 h-4"></i> Card Grid
+            </button>
+            <button onclick="setOrgView('timeline')" id="btn-org-timeline" class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all">
+              <i data-lucide="git-commit-vertical" class="w-4 h-4"></i> Timeline
+            </button>
+          </div>
+        </div>
+
+        <!-- Organization Container -->
+        <div id="organizations-container"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- PAGE 4: COMPETITIONS                                         -->
+    <!-- ============================================================ -->
+    <section id="page-competitions" class="page-section">
+      <!-- Cheerful Rounded Banner -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div class="bg-navy text-cream rounded-[2.25rem] border-2 border-navy shadow-sticker-beige p-8 sm:p-12 relative overflow-hidden">
+          <div class="absolute -right-8 -top-10 w-44 h-44 rounded-full bg-coral/25 blur-xl pointer-events-none"></div>
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-coral text-navy text-xs font-extrabold uppercase tracking-wider mb-4">
+            Achievements & Awards
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-serif font-bold">Competitions & Awards</h1>
+          <p data-i18n="compBannerDesc" class="text-cream/85 mt-3 max-w-2xl text-sm sm:text-base">
+            Sorotan prestasi kompetisi tingkat nasional, karya inovasi berbasis teknologi, serta prototipe UI/UX yang telah dikembangkan.
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+        <!-- Toggle View (Grid / Timeline) -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+          <p data-i18n="compCountLabel" class="font-hand text-2xl font-bold text-navy">3 Prestasi & Pengalaman Kompetisi</p>
+          <div class="inline-flex bg-white p-1.5 rounded-full border-2 border-navy shadow-sticker-sm">
+            <button onclick="setCompView('grid')" id="btn-comp-grid" class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all">
+              <i data-lucide="layout-grid" class="w-4 h-4"></i> Card Grid
+            </button>
+            <button onclick="setCompView('timeline')" id="btn-comp-timeline" class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all">
+              <i data-lucide="git-commit-vertical" class="w-4 h-4"></i> Timeline
+            </button>
+          </div>
+        </div>
+
+        <!-- Competitions Container -->
+        <div id="competitions-container" class="space-y-8"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- PAGE 5: CERTIFICATES                                         -->
+    <!-- ============================================================ -->
+    <section id="page-certificates" class="page-section">
+      <!-- Cheerful Rounded Banner -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div class="bg-navy text-cream rounded-[2.25rem] border-2 border-navy shadow-sticker-beige p-8 sm:p-12 relative overflow-hidden">
+          <div class="absolute -right-8 -bottom-8 w-44 h-44 rounded-full bg-sun/20 blur-xl pointer-events-none"></div>
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-beige text-navy text-xs font-extrabold uppercase tracking-wider mb-4">
+            Credentials & Licenses
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-serif font-bold">Certificates Gallery</h1>
+          <p data-i18n="certBannerDesc" class="text-cream/85 mt-3 max-w-2xl text-sm sm:text-base">
+            Galeri sertifikasi kompetensi, pencapaian lomba, serta kontribusi organisasi yang dikelompokkan rapi agar mudah diperbarui.
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+        <!-- Category Filter -->
+        <div class="flex flex-wrap gap-2 bg-white p-2 rounded-full border-2 border-navy shadow-sticker-sm mb-10 w-fit">
+          <button onclick="filterCertificates('all')" data-cert-filter="all" class="cert-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream transition-all">
+            All (14)
+          </button>
+          <button onclick="filterCertificates('training')" data-cert-filter="training" class="cert-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige transition-all">
+            Training & Competency (3)
+          </button>
+          <button onclick="filterCertificates('competition')" data-cert-filter="competition" class="cert-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige transition-all">
+            Competition (3)
+          </button>
+          <button onclick="filterCertificates('organization')" data-cert-filter="organization" class="cert-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige transition-all">
+            Organization (8)
+          </button>
+        </div>
+
+        <!-- Certificates Container -->
+        <div id="certificates-container" class="space-y-12"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- PAGE 6: CONTACT                                              -->
+    <!-- ============================================================ -->
+    <section id="page-contact" class="page-section">
+      <!-- Cheerful Rounded Banner -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div class="bg-navy text-cream rounded-[2.25rem] border-2 border-navy shadow-sticker-beige p-8 sm:p-12 relative overflow-hidden">
+          <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-sun text-navy text-xs font-extrabold uppercase tracking-wider mb-4">
+            Get In Touch
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-serif font-bold">Let's Work Together!</h1>
+          <p data-i18n="contactBannerDesc" class="text-cream/85 mt-3 max-w-2xl text-sm sm:text-base">
+            Punya ide seru buat proyek QA Testing, UI/UX Design, Pengembangan Aplikasi, atau Event Management? Kirim pesan langsung di bawah ini ya!
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- Contact Cards -->
+          <div class="lg:col-span-5 space-y-5">
+            <!-- Email Card -->
+            <div class="bg-white border-2 border-navy p-6 rounded-[2rem] shadow-sticker">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-sun border-2 border-navy text-navy flex items-center justify-center shrink-0">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p data-i18n="officialEmail" class="text-xs font-extrabold uppercase tracking-wider text-navy/60">Email Resmi</p>
+                  <p class="text-base font-bold text-navy truncate">Kartikatranaa@gmail.com</p>
+                </div>
+              </div>
+              <div class="flex gap-2.5 mt-5">
+                <a href="mailto:Kartikatranaa@gmail.com" class="btn-tactile flex-1 inline-flex items-center justify-center gap-2 bg-navy text-cream border-2 border-navy py-2.5 px-4 rounded-full text-xs sm:text-sm font-bold shadow-sticker-sm">
+                  <i data-lucide="send" class="w-4 h-4"></i> <span data-i18n="sendEmail">Kirim Email</span>
+                </a>
+                <button onclick="copyEmail()" class="btn-tactile inline-flex items-center justify-center gap-2 bg-beige border-2 border-navy text-navy py-2.5 px-4 rounded-full text-xs sm:text-sm font-bold shadow-sticker-sm">
+                  <i data-lucide="copy" class="w-4 h-4"></i> <span data-i18n="copyBtn">Salin</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- LinkedIn & Instagram -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <a href="https://www.linkedin.com/in/kartika-tri-juliana/" target="_blank" rel="noopener noreferrer" class="group bg-white border-2 border-navy hover:bg-mint/30 p-5 rounded-[1.75rem] shadow-sticker-sm transition-all flex flex-col justify-between">
+                <div class="w-10 h-10 rounded-xl bg-white border-2 border-navy flex items-center justify-center group-hover:-rotate-6 transition-transform">
+                  <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true">
+                    <rect width="24" height="24" rx="5" fill="#0A66C2"/>
+                    <path d="M7.5 10V17M7.5 7.2V7.25M11 17V10M11 12.5C11 11.12 12.12 10 13.5 10C14.88 10 16 11.12 16 12.5V17" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="mt-4">
+                  <p class="text-xs font-extrabold uppercase tracking-wider text-navy/60">LinkedIn</p>
+                  <p class="text-sm font-bold text-navy mt-0.5 flex items-center gap-1">
+                    Kartika Tri Juliana
+                    <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                  </p>
+                </div>
+              </a>
+
+              <a href="https://www.instagram.com/kartikatr.anaa_/" target="_blank" rel="noopener noreferrer" class="group bg-white border-2 border-navy hover:bg-coral/25 p-5 rounded-[1.75rem] shadow-sticker-sm transition-all flex flex-col justify-between">
+                <div class="w-10 h-10 rounded-xl bg-white border-2 border-navy flex items-center justify-center group-hover:rotate-6 transition-transform">
+                  <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="igGrad" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#F58529"/>
+                        <stop offset="50%" stop-color="#DD2A7B"/>
+                        <stop offset="100%" stop-color="#8134AF"/>
+                      </linearGradient>
+                    </defs>
+                    <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#igGrad)"/>
+                    <circle cx="12" cy="12" r="4.2" stroke="#FFFFFF" stroke-width="2"/>
+                    <circle cx="17.2" cy="6.8" r="1.2" fill="#FFFFFF"/>
+                  </svg>
+                </div>
+                <div class="mt-4">
+                  <p class="text-xs font-extrabold uppercase tracking-wider text-navy/60">Instagram</p>
+                  <p class="text-sm font-bold text-navy mt-0.5 flex items-center gap-1">
+                    @kartikatr.anaa_
+                    <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <!-- Availability Card -->
+            <div class="bg-beige border-2 border-navy p-6 rounded-[2rem] shadow-sticker-sm">
+              <h3 data-i18n="servicesTitle" class="font-serif text-lg font-bold text-navy flex items-center gap-2">
+                Layanan & Kolaborasi
+              </h3>
+              <ul class="mt-3 space-y-2.5 text-sm font-medium text-navy/85">
+                <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-navy"></span> Manual & Automation QA Testing</li>
+                <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-navy"></span> UI/UX Research, Wireframing & Figma Prototyping</li>
+                <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-navy"></span> Front-End Web & Flutter App Collaboration</li>
+                <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-navy"></span> Event Management & Public Relations</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="lg:col-span-7 bg-white border-2 border-navy p-6 sm:p-8 rounded-[2rem] shadow-sticker">
+            <h2 data-i18n="formTitle" class="text-2xl sm:text-3xl font-serif font-bold text-navy">Kirim Pesan Langsung</h2>
+            <p data-i18n="formSubtitle" class="text-sm text-navy/70 mt-1 mb-6">Isi formulir singkat di bawah ini, nanti aku balas lewat email secepatnya!</p>
+
+            <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="sender-name" data-i18n="formNameLabel" class="block text-xs font-extrabold uppercase tracking-wider text-navy mb-2">Nama Lengkap</label>
+                  <input id="sender-name" name="name" type="text" required data-i18n-placeholder="formNamePlaceholder" placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-2xl bg-cream border-2 border-navy/25 text-navy placeholder:text-navy/40 focus:outline-none focus:border-navy text-sm font-medium" />
+                </div>
+                <div>
+                  <label for="sender-email" data-i18n="formEmailLabel" class="block text-xs font-extrabold uppercase tracking-wider text-navy mb-2">Alamat Email</label>
+                  <input id="sender-email" name="email" type="email" required data-i18n-placeholder="formEmailPlaceholder" placeholder="nama@perusahaan.com" class="w-full px-4 py-3 rounded-2xl bg-cream border-2 border-navy/25 text-navy placeholder:text-navy/40 focus:outline-none focus:border-navy text-sm font-medium" />
+                </div>
+              </div>
+
+              <div>
+                <label for="sender-topic" data-i18n="formTopicLabel" class="block text-xs font-extrabold uppercase tracking-wider text-navy mb-2">Topik Kolaborasi</label>
+                <select id="sender-topic" name="topic" class="w-full px-4 py-3 rounded-2xl bg-cream border-2 border-navy/25 text-navy focus:outline-none focus:border-navy text-sm font-medium">
+                  <option value="QA Engineering">Quality Assurance (Manual / Automation)</option>
+                  <option value="UI/UX Design">UI/UX Design & Prototyping</option>
+                  <option value="Web / Mobile Dev">Web / Mobile Development</option>
+                  <option value="Event Management">Event Management / Organization</option>
+                  <option value="Lainnya" data-i18n="formTopicOther">Diskusi Lainnya</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="sender-message" data-i18n="formMsgLabel" class="block text-xs font-extrabold uppercase tracking-wider text-navy mb-2">Pesan Anda</label>
+                <textarea id="sender-message" name="message" rows="4" required data-i18n-placeholder="formMsgPlaceholder" placeholder="Ceritakan singkat mengenai proyek, kebutuhan, atau jadwal diskusi..." class="w-full px-4 py-3 rounded-2xl bg-cream border-2 border-navy/25 text-navy placeholder:text-navy/40 focus:outline-none focus:border-navy text-sm font-medium resize-none"></textarea>
+              </div>
+
+              <button id="contact-submit-btn" type="submit" class="btn-tactile w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-navy text-cream border-2 border-navy px-8 py-3.5 rounded-full text-sm font-bold shadow-sticker-sm disabled:opacity-60 disabled:cursor-not-allowed">
+                <span id="contact-submit-text" data-i18n="formSubmit">Kirim Pesan</span>
+                <i data-lucide="send" class="w-4 h-4 text-sun"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER (TAMPIL DI SETIAP HALAMAN) ==================== -->
+  <footer class="mt-auto pt-10">
+    <!-- Wavy Divider Ceria -->
+    <div class="w-full overflow-hidden leading-none text-navy">
+      <svg class="w-full h-8 sm:h-12" viewBox="0 0 1200 60" preserveAspectRatio="none" fill="currentColor">
+        <path d="M0,30 C150,60 350,0 600,30 C850,60 1050,0 1200,30 L1200,60 L0,60 Z"></path>
+      </svg>
+    </div>
+
+    <div class="bg-navy text-cream">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-10 border-b border-white/15">
+          <div class="md:col-span-7 space-y-3">
+            <span class="font-hand text-2xl font-bold text-sun">Ready to create something cool?</span>
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold">Let's Work Together</h2>
+            <p data-i18n="footerDesc" class="text-cream/80 text-sm sm:text-base max-w-xl">
+              Siap membantu meningkatkan kualitas produk digital Anda melalui QA Testing yang teliti, desain UI/UX yang ramah pengguna, maupun manajemen acara yang berkesan.
+            </p>
+          </div>
+          <div class="md:col-span-5 flex flex-wrap md:justify-end gap-3">
+            <a href="mailto:Kartikatranaa@gmail.com" class="inline-flex items-center gap-2 bg-sun text-navy hover:bg-cream border-2 border-cream px-5 py-3 rounded-full text-sm font-extrabold transition-all hover:-translate-y-0.5">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              <span>Kartikatranaa@gmail.com</span>
+            </a>
+            <button onclick="copyEmail()" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-cream border-2 border-white/25 px-4 py-3 rounded-full text-sm font-bold transition-all">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              <span data-i18n="copyBtn">Salin</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="pt-8 flex items-center justify-center text-sm text-cream/75 text-center">
+          <p>&copy; 2026 Kartika Tri Juliana</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== DETAIL / PREVIEW MODAL ==================== -->
+  <div id="detail-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-navy/75 backdrop-blur-sm" onclick="closeModalOnBackdrop(event)">
+    <div class="bg-cream border-2 border-navy rounded-[2rem] max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-sticker relative animate-[popSlideIn_0.25s_ease-out]">
+      <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-sun border-2 border-navy text-navy hover:bg-coral flex items-center justify-center transition-colors shadow-sticker-sm" aria-label="Tutup">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toast" class="fixed bottom-6 right-6 z-[70] hidden items-center gap-3 bg-sun text-navy border-2 border-navy px-5 py-3.5 rounded-full shadow-sticker text-sm font-bold">
+    <i data-lucide="check-circle" class="w-5 h-5 text-navy shrink-0"></i>
+    <span id="toast-message">Notifikasi</span>
+  </div>
+
+  <!-- ==================== JAVASCRIPT DATA & INTERACTIVITY ==================== -->
+  <script>
+    /**
+- ============================================================================
+- MODULAR PORTFOLIO DATA (MUDAH DITAMBAH, DIKURANGI, ATAU DIPERBARUI)
+- ============================================================================
+- Semua foto menggunakan format lokal di dalam folder `images/`.
+- Cukup masukkan file foto Anda dengan nama yang sesuai ke dalam folder `images/`.
+     */
+    const PORTFOLIO_DATA = {
+      projects: [
+        // --- Kategori: Pengalaman Magang ---
+        {
+          id: 'maxchat-qa',
+          category: 'magang',
+          categoryLabel: 'Pengalaman Magang',
+          title: 'PT. Maxchat Inovasi Indonesia',
+          period: 'Jul 2026 – Present',
+          role: 'Software Quality Assurance Test Engineer (Magang)',
+          description: 'Melakukan pengujian manual pada produk Maxchat serta membangun skrip End-to-End (E2E) automation testing menggunakan Playwright dan TypeScript. Bertanggung jawab dalam penyusunan test case, pelaporan bug secara terstruktur kepada developer, serta pelaksanaan API testing menggunakan Postman.',
+          highlights: [
+            'Manual Testing pada produk Maxchat & penyusunan Test Case',
+            'End-to-End (E2E) Automation Testing menggunakan Playwright dan TypeScript',
+            'API Testing menggunakan Postman serta pelaporan bug kepada tim developer'
+          ],
+          tags: ['Playwright', 'TypeScript', 'Postman', 'End-to-end Testing', 'GitHub', 'Notion', 'MS Word'],
+          image: 'images/project-maxchat.jpg',
+          images: [
+            'images/project-maxchat.jpg',
+            'images/project-maxchat-2.jpg'
+          ],
+          links: []
+        },
+        {
+          id: 'fahove-uiux',
+          category: 'magang',
+          categoryLabel: 'Pengalaman Magang',
+          title: 'PT. Fahove Teknologi Indonesia',
+          period: 'Feb – Jun 2026',
+          role: 'UI/UX Designer (Magang)',
+          description: 'Merancang antarmuka dan pengalaman pengguna menggunakan Figma dengan menerapkan design systems, responsive layouts, component-based thinking, prinsip UX, serta UX flow secara jarak jauh (remote).',
+          highlights: [
+            'Merancang Design Systems & komponen UI modular di Figma',
+            'Menerapkan Responsive Layouts dan Component-Based Thinking',
+            'Menyusun UX Flow serta mengoptimalkan User Interface & User Experience Design (UED)'
+          ],
+          tags: ['Figma', 'Design Systems', 'Responsive Layouts', 'UX Principles', 'UI/UX Design'],
+          image: 'images/project-fahove.jpg',
+          images: [
+            'images/project-fahove.jpg',
+            'images/project-fahove-2.jpg'
+          ],
+          links: [
+            { label: 'Figma Prototype', url: 'https://www.figma.com/proto/WuVyJAlphCnY5YAUPm9HY6/Security?node-id=108-1312&t=t3itjnB14iNHBsgI-1', icon: 'figma', style: 'primary' }
+          ]
+        },
+
+        // --- Kategori: Manual & Automation QA ---
+        {
+          id: 'qpon-apps',
+          category: 'qa',
+          categoryLabel: 'Manual & Automation QA',
+          title: 'Qpon Apps',
+          period: 'Sep – Okt 2025',
+          role: 'Manual QA Tester & Bug Reporter',
+          description: 'Melakukan pengujian manual secara menyeluruh (functional & exploratory testing) pada fitur kupon dan transaksi aplikasi Qpon, menyusun skenario test case, serta mendokumentasikan bug report secara terstruktur untuk tim developer.',
+          highlights: [
+            'Penyusunan Test Case & Test Scenario komprehensif',
+            'Pelaporan Bug lengkap dengan langkah reproduksi & severity',
+            'Verifikasi perbaikan bug (Regression Testing)'
+          ],
+          tags: ['Manual Testing', 'Bug Reporting', 'Test Case', 'QA Documentation'],
+          image: 'images/project-qpon.png',
+          images: [
+            'images/project-qpon.png',
+            'images/project-qpon-2.jpeg'
+          ],
+          links: [
+            { label: 'Test Report / Doc', url: 'https://docs.google.com/spreadsheets/d/1ZNP6NWyZ_Funhp3Zx9GRZgdVIkqERfLGgHlsaHbx0Zg/edit?usp=sharing', icon: 'file-text', style: 'primary' }
+          ]
+        },
+        {
+          id: 'sipres-jti-qa',
+          category: 'qa',
+          categoryLabel: 'Manual & Automation QA',
+          title: 'SIPRES JTI (QA & Usability)',
+          period: 'Nov–Des 2025 & Feb–Mar 2026',
+          role: 'QA Automation Engineer & Usability Evaluator',
+          description: 'Mengembangkan skrip pengujian otomatis (Automation Testing) lintas platform web dan mobile menggunakan Selenium, Codeception, serta Flutter Test, sekaligus melaksanakan evaluasi ketergunaan sistem menggunakan metode SUS (System Usability Scale) dan TAM (Technology Acceptance Model).',
+          highlights: [
+            'End-to-End Web Automation dengan Selenium & Codeception',
+            'Widget & Integration Testing menggunakan Flutter Test',
+            'Analisis kepuasan dan penerimaan pengguna berbasis SUS & TAM'
+          ],
+          tags: ['Selenium', 'Codeception', 'Flutter Test', 'SUS & TAM'],
+          image: 'images/project-sipres-qa.png',
+          images: [
+            'images/project-sipres-qa.png',
+            'images/project-sipres-qa-2.png'
+          ],
+          links: [
+            { label: 'GitHub Repo', url: 'https://github.com/kartika3juli15/SipresJTI', icon: 'github', style: 'primary' },
+            { label: 'Usability Report', url: 'https://docs.google.com/spreadsheets/d/1sCTtp3u2H6ZMTIW3pG9043EC8zY-9N1nsrVZcjblnrU/edit?gid=0#gid=0', icon: 'bar-chart-2', style: 'secondary' }
+          ]
+        },
+
+        // --- Kategori: UI/UX Design & Full Stack Development ---
+        {
+          id: 'sitatib',
+          category: 'uiux-dev',
+          categoryLabel: 'UI/UX Design & Full Stack Development',
+          title: 'SiTatib (Sistem Tata Tertib)',
+          period: 'Agu – Des 2024',
+          role: 'Front-End Dev, UI/UX Designer & Tester',
+          description: 'Merancang antarmuka sistem pencatatan pelanggaran tata tertib mahasiswa berbasis web, mengimplementasikan tampilan Front-End menggunakan Pure PHP, serta melakukan pengujian fungsionalitas sistem sebelum dirilis.',
+          highlights: [
+            'Desain alur pengguna (User Flow) & UI bersih berbasis Figma',
+            'Implementasi antarmuka responsif dengan Pure PHP',
+            'Pengujian validasi input dan alur pelaporan'
+          ],
+          tags: ['Pure PHP', 'UI/UX Design', 'Front-End', 'Manual Testing'],
+          image: 'images/project-sitatib.png',
+          images: [
+            'images/project-sitatib.png',
+            'images/project-sitatib-2.jpeg'
+          ],
+          links: [
+            { label: 'GitHub', url: 'https://github.com/dzulfikar05/tatatertib', icon: 'github', style: 'primary' }
+          ]
+        },
+        {
+          id: 'siakreditasi-sib',
+          category: 'uiux-dev',
+          categoryLabel: 'UI/UX Design & Full Stack Development',
+          title: 'SIAKREDITASI D4 SIB',
+          period: 'Feb – Jun 2025',
+          role: 'UI/UX Designer & Front-End Developer',
+          description: 'Mendesain ulang pengalaman pengguna dan membangun tampilan antarmuka Front-End sistem manajemen dokumen akreditasi Program Studi D4 Sistem Informasi Bisnis berbasis framework Laravel.',
+          highlights: [
+            'Perancangan Dashboard manajemen borang akreditasi',
+            'Integrasi Blade Template responsif pada Laravel',
+            'Fokus pada kemudahan navigasi bagi dosen & tim akreditasi'
+          ],
+          tags: ['Laravel', 'UI/UX Design', 'Front-End', 'Figma'],
+          image: 'images/project-siakreditasi.png',
+          images: [
+            'images/project-siakreditasi.png',
+            'images/project-siakreditasi-2.png'
+          ],
+          links: [
+            { label: 'GitHub', url: 'https://github.com/yusra202120/SistemAkreditasiSIB', icon: 'github', style: 'primary' },
+            { label: 'Figma Prototype', url: 'https://www.figma.com/proto/1zwNZr1DrcYPV9P6U5XlpJ/PBL-SMT-4?node-id=1003-79&t=3pwxHuDvpw2NvFV5-1', icon: 'figma', style: 'secondary' }
+          ]
+        },
+        {
+          id: 'sipres-jti-mobile',
+          category: 'uiux-dev',
+          categoryLabel: 'UI/UX Design & Full Stack Development',
+          title: 'SIPRES JTI Mobile App',
+          period: 'Okt – Des 2025',
+          role: 'Project Manager & Full Stack Developer',
+          description: 'Memimpin pengelolaan proyek sekaligus mengembangkan aplikasi mobile sistem prestasi mahasiswa Jurusan Teknologi Informasi menggunakan Flutter & Dart secara menyeluruh.',
+          highlights: [
+            'Koordinasi timeline, pembagian tugas, dan milestone tim',
+            'Pengembangan aplikasi lintas platform dengan Flutter/Dart',
+            'Integrasi fitur pencatatan dan verifikasi prestasi mahasiswa'
+          ],
+          tags: ['Flutter', 'Dart', 'Project Management', 'Full Stack'],
+          image: 'images/project-sipres-mobile.png',
+          images: [
+            'images/project-sipres-mobile.png',
+            'images/project-sipres-mobile-2.png'
+          ],
+          links: [
+            { label: 'GitHub', url: 'https://github.com/kartika3juli15/SipresJTI', icon: 'github', style: 'primary' },
+            { label: 'App Prototype', url: 'https://www.figma.com/proto/8bP7Go0Ml6LLkXy0gHRoSg/PBL-MOBILE?node-id=836-2754&t=zxjbW6N1BDrBpRKD-1&starting-point-node-id=1019%3A2920', icon: 'figma', style: 'secondary' }
+          ]
+        },
+        {
+          id: 'guardly',
+          category: 'uiux-dev',
+          categoryLabel: 'UI/UX Design & Full Stack Development',
+          title: 'Guardly Security System',
+          period: 'Feb – Mar 2026',
+          role: 'UI/UX Designer (Mobile App)',
+          description: 'Merancang desain pengalaman dan antarmuka aplikasi mobile keamanan Guardly dengan fokus pada akses cepat fitur darurat, pemantauan real-time, dan hierarki visual kontras tinggi.',
+          highlights: [
+            'Design System komponen mobile yang konsisten & modular',
+            'Prototipe interaktif alur pemantauan & notifikasi keamanan',
+            'Optimasi keterbacaan untuk situasi darurat'
+          ],
+          tags: ['UI/UX Design', 'Mobile App', 'Figma', 'Prototyping'],
+          image: 'images/project-guardly.jpeg',
+          images: [
+            'images/project-guardly.jpeg',
+            'images/project-guardly-2.png'
+          ],
+          links: [
+            { label: 'Figma Prototype', url: 'https://www.figma.com/proto/WuVyJAlphCnY5YAUPm9HY6/Security?node-id=108-1312&t=t3itjnB14iNHBsgI-1', icon: 'figma', style: 'primary' }
+          ]
+        }
+      ],
+
+      organizations: [
+        {
+          name: 'HMTI Polinema 2025',
+          role: 'Head of Department',
+          period: 'Feb 2025 – Feb 2026',
+          description: 'Memimpin departemen di Himpunan Mahasiswa Teknologi Informasi Polinema, merumuskan strategi program kerja tahunan, serta membimbing anggota dalam eksekusi kegiatan.',
+          image: 'images/org-hmti.jpeg',
+          images: [
+            'images/org-hmti.jpeg',
+            'images/org-hmti-2.jpeg'
+          ]
+        },
+        {
+          name: 'MAKRAB 2024',
+          role: 'Public Relations Coordinator',
+          period: 'Jun – Sep 2024',
+          description: 'Mengkoordinasikan komunikasi eksternal dan internal, menjalin relasi dengan pemangku kepentingan, serta memastikan distribusi informasi acara berjalan efektif.',
+          image: 'images/org-makrab.jpeg',
+          images: [
+            'images/org-makrab.jpeg',
+            'images/org-makrab-2.jpeg'
+          ]
+        },
+        {
+          name: 'SPORTIF 2024',
+          role: 'Secretariat Coordinator',
+          period: 'Sep – Nov 2024',
+          description: 'Mengelola seluruh administrasi, persuratan, pendataan peserta, dan dokumentasi administratif pada ajang kompetisi olahraga mahasiswa SPORTIF 2024.',
+          image: 'images/org-sportif.jpeg',
+          images: [
+            'images/org-sportif.jpeg',
+            'images/org-sportif-2.jpeg'
+          ]
+        },
+        {
+          name: 'Bunga Wisuda',
+          role: 'Supervisor',
+          period: 'Sep – Des 2024',
+          description: 'Bertindak sebagai pengawas pelaksanaan program kerja, memastikan setiap divisi berjalan sesuai standar operasional, lini masa, dan target acara.',
+          image: 'images/org-bungwis.jpeg',
+          images: [
+            'images/org-bungwis.jpeg',
+            'images/org-bungwis-2.jpeg'
+          ]
+        },
+        {
+          name: 'Study Excursie',
+          role: 'Time Keeper',
+          period: 'Agu – Des 2024',
+          description: 'Mengatur presisi jadwal dan rundown kunjungan industri mahasiswa agar seluruh rangkaian agenda berjalan tepat waktu dan kondusif.',
+          image: 'images/org-study-excursie.jpeg',
+          images: [
+            'images/org-study-excursie.jpeg',
+            'images/org-study-excursie-2.jpeg'
+          ]
+        },
+        {
+          name: 'Open Recruitment HMTI',
+          role: 'Supervisor',
+          period: 'Agu – Sep 2024',
+          description: 'Mengawasi rangkaian proses seleksi dan kaderisasi calon fungsionaris baru HMTI agar berjalan objektif, terstruktur, dan lancar.',
+          image: 'images/org-oprec-hmti.jpeg',
+          images: [
+            'images/org-oprec-hmti.jpeg',
+            'images/org-oprec-hmti-2.jpeg'
+          ]
+        },
+        {
+          name: 'PRASTUDI',
+          role: 'Publications & Documentation',
+          period: 'Mei – Agu 2024',
+          description: 'Memproduksi materi visual publikasi, mengelola konten informasi pra-studi mahasiswa baru, serta mendokumentasikan momen penting kegiatan.',
+          image: 'images/org-prastudi.jpeg',
+          images: [
+            'images/org-prastudi.jpeg',
+            'images/org-prastudi-2.jpeg'
+          ]
+        },
+        {
+          name: 'Dialog Dosen Mahasiswa',
+          role: 'Secretary',
+          period: 'Feb – Mei 2024',
+          description: 'Menyusun notulensi forum aspirasi, mengelola arsip surat menyurat, serta merangkum rekomendasi hasil dialog antara dosen dan mahasiswa.',
+          image: 'images/org-ddm.jpeg',
+          images: [
+            'images/org-ddm.jpeg',
+            'images/org-ddm-2.jpeg'
+          ]
+        }
+      ],
+
+      competitions: [
+        {
+          title: 'PIMNAS 5 (Pekan Ilmiah Mahasiswa Nasional 5)',
+          award: 'Bronze Medal & Finalis',
+          period: 'Okt – Nov 2025',
+          workTitle: 'DiBi — AI-Based Smart App untuk Pasien Diabetes',
+          deliverables: ['UI/UX Prototype', 'Essay', 'Poster Ilmiah'],
+          description: 'Meraih medali perunggu dan lolos sebagai finalis nasional melalui karya inovatif DiBi, aplikasi pintar berbasis kecerdasan buatan yang membantu pasien diabetes memantau pola makan, kadar gula darah, dan rekomendasi kesehatan harian secara interaktif.',
+          image: 'images/lomba-pimnas5.png',
+          images: [
+            'images/lomba-pimnas5.png',
+            'images/lomba-pimnas5-2.jpg'
+          ],
+          featured: true,
+          links: [
+            { label: 'Lihat Prototipe Figma', url: 'https://figma.com', icon: 'figma' },
+            { label: 'Detail Karya & Poster', url: '#preview', icon: 'eye' }
+          ]
+        },
+        {
+          title: 'UI/UX TECHFEST Binus University',
+          award: 'Participant & Prototype Submission',
+          period: 'Jun – Jul 2024',
+          workTitle: 'Sistem Adopsi Hewan Terlantar',
+          deliverables: ['UI/UX Prototype', 'Essay'],
+          description: 'Merancang solusi digital berupa aplikasi adopsi hewan terlantar yang mempertemukan shelter, relawan, dan calon pengadopsi dengan alur verifikasi yang transparan dan antarmuka yang ramah pengguna.',
+          image: 'images/lomba-techfest-binus.png',
+          images: [
+            'images/lomba-techfest-binus.png',
+            'images/lomba-techfest-binus-2.jpg'
+          ],
+          featured: false,
+          links: [
+            { label: 'Lihat Prototipe Figma', url: 'https://figma.com', icon: 'figma' }
+          ]
+        },
+        {
+          title: 'Bizznovation Competition Pradita University',
+          award: 'UI/UX Competition Participant',
+          period: 'Mar – Apr 2025',
+          workTitle: 'Inovasi Desain UI/UX Solusi Bisnis Digital',
+          deliverables: ['UI/UX Design', 'User Research'],
+          description: 'Berpartisipasi dalam kompetisi inovasi bisnis dan desain UI/UX tingkat nasional di Pradita University, mengasah kemampuan problem solving berbasis riset pengguna dan kelayakan bisnis.',
+          image: 'images/lomba-bizznovation.jpg',
+          images: [
+            'images/lomba-bizznovation.jpg',
+            'images/lomba-bizznovation-2.jpg'
+          ],
+          featured: false,
+          links: [
+            { label: 'Lihat Prototipe Figma', url: 'https://figma.com', icon: 'figma' }
+          ]
+        }
+      ],
+
+      certificates: [
+        // 1. Training & Competency Certification
+        {
+          category: 'training',
+          categoryTitle: 'Training & Competency Certification',
+          title: 'BNSP Associate Data Scientist',
+          issuer: 'Badan Nasional Sertifikasi Profesi (BNSP)',
+          year: '2025',
+          image: 'images/cert-bnsp-data-scientist.png'
+        },
+        {
+          category: 'training',
+          categoryTitle: 'Training & Competency Certification',
+          title: 'Komdigi VSGA Data Science',
+          issuer: 'Kementerian Komunikasi dan Digital (VSGA)',
+          year: '2024',
+          image: 'images/cert-komdigi-vsga.png'
+        },
+        {
+          category: 'training',
+          categoryTitle: 'Training & Competency Certification',
+          title: 'Komdigi Data Analyst Micro Skill',
+          issuer: 'Kementerian Komunikasi dan Digital',
+          year: '2025',
+          image: 'images/cert-komdigi-data-analyst.png'
+        },
+
+        // 2. Competition Certificates
+        {
+          category: 'competition',
+          categoryTitle: 'Competition Certificates',
+          title: 'Bronze Medal & Finalis PIMNAS 5',
+          issuer: 'Pekan Ilmiah Mahasiswa Nasional 5',
+          year: '2025',
+          image: 'images/cert-pimnas5.png'
+        },
+        {
+          category: 'competition',
+          categoryTitle: 'Competition Certificates',
+          title: 'Bizznovation UI/UX Competition',
+          issuer: 'Pradita University',
+          year: '2025',
+          image: 'images/cert-bizznovation.png'
+        },
+        {
+          category: 'competition',
+          categoryTitle: 'Competition Certificates',
+          title: 'UI/UX Techfest Binus',
+          issuer: 'Binus University',
+          year: '2024',
+          image: 'images/cert-techfest-binus.png'
+        },
+
+        // 3. Organization & Committee Certificates
+        {
+          category: 'organization',
+          categoryTitle: 'Organization & Committee Certificates',
+          title: 'HMTI Polinema',
+          issuer: 'Head of Department — HMTI Polinema',
+          year: '2025',
+          image: 'images/cert-hmti.png'
+        },
+        {
+          category: 'organization',
+          categoryTitle: 'Organization & Committee Certificates',
+          title: 'Dialog Dosen Mahasiswa',
+          issuer: 'Secretary — Kepanitiaan DDM',
+          year: '2024',
+          image: 'images/cert-ddm.jpg'
+        },
+        {
+          category: 'organization',
+          categoryTitle: 'Organization & Committee Certificates',
+          title: 'Prastudi',
+          issuer: 'Publications & Documentation',
+          year: '2024',
+          image: 'images/cert-prastudi.png'
+        },
+        {
+          category: 'organization',
+          categoryTitle: 'Organization & Committee Certificates',
+          title: 'Open Recruitment HMTI',
+          issuer: 'Supervisor — Oprec HMTI',
+          year: '2024',
+          image: 'images/cert-oprec-hmti.jpg'
+        },
+        {
+          category: 'organization',
+          categoryTitle: 'Organization & Committee Certificates',
+          title: 'Study Excursie',
+          issuer: 'Time Keeper — Study Excursie',
+          year: '2024',
+          image: 'images/cert-study-excursie.jpg'
+        },
+        {
+          category: 'organization',
+          categoryTitle: 'Organization & Committee Certificates',
+          title: 'SPORTIF 2024',
+          issuer: 'Secretariat Coordinator — SPORTIF',
+          year: '2024',
+          image: 'images/cert-sportif.jpg'
+        },
+        {
+          category: 'organization',
+          categoryTitle: 'Organization & Committee Certificates',
+          title: 'MAKRAB 2024',
+          issuer: 'Public Relations Coordinator — MAKRAB',
+          year: '2024',
+          image: 'images/cert-makrab.jpg'
+        },
+        {
+          category: 'organization',
+          categoryTitle: 'Organization & Committee Certificates',
+          title: 'PKM Innovator BEM',
+          issuer: 'Badan Eksekutif Mahasiswa (BEM)',
+          year: '2024',
+          image: 'images/cert-pkm-bem.jpg'
+        }
+      ]
+    };
+
+    // State aplikasi
+    let currentPage = 'home';
+    let currentLang = 'id';
+    let currentProjectFilter = 'all';
+    let currentProjectView = 'grid';
+    let currentOrgView = 'grid';
+    let currentCompView = 'grid';
+    let currentCertFilter = 'all';
+    let currentProjectSlideIndex = 0;
+    let currentProjectSlideTotal = 1;
+
+    /**
+- Kamus Multi Bahasa (Indonesia & English)
+     */
+    const I18N = {
+      id: {
+        heroGreeting: 'Halo, salam kenal! Aku...',
+        heroBio: 'Mahasiswi <strong>D4 Sistem Informasi Bisnis</strong> di Politeknik Negeri Malang yang senang berburu <em>bug</em> lewat <strong>Manual & Automation QA</strong>, merancang tampilan aplikasi yang nyaman digunakan, serta mengatur jalannya acara dan organisasi dengan rapi dan penuh semangat!',
+        eduPolinemaMajor: 'D4 Sistem Informasi Bisnis',
+        eduPolinemaDesc: 'Mendalami rekayasa perangkat lunak, pengujian kualitas sistem (QA), desain UI/UX, sekaligus aktif memimpin organisasi HMTI dan berkompetisi di tingkat nasional.',
+        eduSmanMajor: 'Pendidikan Menengah Atas',
+        eduSmanDesc: 'Tempat mengasah dasar berpikir logis, komunikasi publik, manajemen waktu, dan kerja sama tim sejak masa sekolah.',
+        hardSkillsDesc: 'Keahlian inti yang jadi andalan di setiap proyek dan kegiatan.',
+        softSkillsDesc: 'Cara aku berkolaborasi dan membawa energi positif di dalam tim.',
+        projectsBannerDesc: 'Kumpulan proyek pengujian perangkat lunak (Manual & Automation QA), perancangan antarmuka (UI/UX), serta pengembangan aplikasi web dan mobile.',
+        filterInternship: 'Pengalaman Magang (2)',
+        githubProfile: 'Profil GitHub',
+        groupMagangTitle: 'Pengalaman Magang',
+        groupMagangSub: 'Pengalaman magang industri di bidang Software Quality Assurance dan UI/UX Design.',
+        groupQaTitle: 'Manual & Automation QA',
+        groupQaSub: 'Pengujian kualitas fungsional, skrip otomasi, serta evaluasi usability sistem.',
+        groupUiuxTitle: 'UI/UX Design & Full Stack Development',
+        groupUiuxSub: 'Perancangan antarmuka, prototipe interaktif, serta pengembangan aplikasi web dan mobile.',
+        projectCountSuffix: 'Proyek',
+        keyContributions: 'Kontribusi Utama',
+        orgBannerDesc: 'Pengalaman kepemimpinan, supervisi, kesekretariatan, humas, serta manajemen acara dalam berbagai program kerja dan kepanitiaan kampus.',
+        orgCountLabel: '8 Pengalaman Organisasi & Kepanitiaan',
+        compBannerDesc: 'Sorotan prestasi kompetisi tingkat nasional, karya inovasi berbasis teknologi, serta prototipe UI/UX yang telah dikembangkan.',
+        compCountLabel: '3 Prestasi & Pengalaman Kompetisi',
+        workPrefix: 'Karya:',
+        viewWorkDetail: 'Lihat Detail Karya',
+        figmaPrototype: 'Prototipe Figma',
+        certBannerDesc: 'Galeri sertifikasi kompetensi, pencapaian lomba, serta kontribusi organisasi yang dikelompokkan rapi agar mudah diperbarui.',
+        previewLabel: 'Pratinjau',
+        yearLabel: 'Tahun',
+        contactBannerDesc: 'Punya ide seru buat proyek QA Testing, UI/UX Design, Pengembangan Aplikasi, atau Event Management? Kirim pesan langsung di bawah ini ya!',
+        officialEmail: 'Email Resmi',
+        sendEmail: 'Kirim Email',
+        copyBtn: 'Salin',
+        servicesTitle: 'Layanan & Kolaborasi',
+        formTitle: 'Kirim Pesan Langsung',
+        formSubtitle: 'Isi formulir singkat di bawah ini, nanti aku balas lewat email secepatnya!',
+        formNameLabel: 'Nama Lengkap',
+        formNamePlaceholder: 'Contoh: Budi Santoso',
+        formEmailLabel: 'Alamat Email',
+        formEmailPlaceholder: 'nama@perusahaan.com',
+        formTopicLabel: 'Topik Kolaborasi',
+        formTopicOther: 'Diskusi Lainnya',
+        formMsgLabel: 'Pesan Anda',
+        formMsgPlaceholder: 'Ceritakan singkat mengenai proyek, kebutuhan, atau jadwal diskusi...',
+        formSubmit: 'Kirim Pesan',
+        formSending: 'Mengirim...',
+        footerDesc: 'Siap membantu meningkatkan kualitas produk digital Anda melalui QA Testing yang teliti, desain UI/UX yang ramah pengguna, maupun manajemen acara yang berkesan.',
+        toastEmailCopied: 'Email Kartikatranaa@gmail.com berhasil disalin!',
+        toastEmailCopyFail: 'Gagal menyalin otomatis. Email: Kartikatranaa@gmail.com'
+      },
+      en: {
+        heroGreeting: "Hi, nice to meet you! I'm...",
+        heroBio: 'A <strong>Business Information Systems (D4)</strong> student at Politeknik Negeri Malang who loves hunting <em>bugs</em> through <strong>Manual & Automation QA</strong>, crafting intuitive user interfaces, and managing events and organizations with structure and enthusiasm!',
+        eduPolinemaMajor: 'B.Appl.Sc. in Business Information Systems',
+        eduPolinemaDesc: 'Focused on software engineering, quality assurance (QA), and UI/UX design, while actively leading HMTI organization and competing at the national level.',
+        eduSmanMajor: 'Senior High School',
+        eduSmanDesc: 'Built strong foundations in logical thinking, public speaking, time management, and teamwork since high school.',
+        hardSkillsDesc: 'Core technical skills I rely on across every project and initiative.',
+        softSkillsDesc: 'How I collaborate and bring positive energy into every team.',
+        projectsBannerDesc: 'A curated showcase of software testing (Manual & Automation QA), UI/UX design, and web & mobile application development projects.',
+        filterInternship: 'Internship Experience (2)',
+        githubProfile: 'GitHub Profile',
+        groupMagangTitle: 'Internship Experience',
+        groupMagangSub: 'Industry internship experiences in Software Quality Assurance and UI/UX Design.',
+        groupQaTitle: 'Manual & Automation QA',
+        groupQaSub: 'Functional quality testing, automation scripts, and system usability evaluation.',
+        groupUiuxTitle: 'UI/UX Design & Full Stack Development',
+        groupUiuxSub: 'Interface design, interactive prototyping, and web & mobile app development.',
+        projectCountSuffix: 'Projects',
+        keyContributions: 'Key Contributions',
+        orgBannerDesc: 'Leadership, supervision, secretariat, public relations, and event management experiences across campus programs and committees.',
+        orgCountLabel: '8 Organization & Committee Experiences',
+        compBannerDesc: 'Highlights of national competition achievements, tech-driven innovations, and UI/UX prototypes.',
+        compCountLabel: '3 Competition Achievements & Experiences',
+        workPrefix: 'Work:',
+        viewWorkDetail: 'View Work Details',
+        figmaPrototype: 'Figma Prototype',
+        certBannerDesc: 'A gallery of competency certifications, competition awards, and organizational contributions neatly organized for easy updates.',
+        previewLabel: 'Preview',
+        yearLabel: 'Year',
+        contactBannerDesc: 'Have an exciting idea for QA Testing, UI/UX Design, App Development, or Event Management? Drop a direct message below!',
+        officialEmail: 'Official Email',
+        sendEmail: 'Send Email',
+        copyBtn: 'Copy',
+        servicesTitle: 'Services & Collaboration',
+        formTitle: 'Send a Direct Message',
+        formSubtitle: "Fill out the short form below and I'll reply via email as soon as possible!",
+        formNameLabel: 'Full Name',
+        formNamePlaceholder: 'Example: John Doe',
+        formEmailLabel: 'Email Address',
+        formEmailPlaceholder: 'name@company.com',
+        formTopicLabel: 'Collaboration Topic',
+        formTopicOther: 'Other Discussions',
+        formMsgLabel: 'Your Message',
+        formMsgPlaceholder: 'Briefly share about your project, requirements, or discussion schedule...',
+        formSubmit: 'Send Message',
+        formSending: 'Sending...',
+        footerDesc: 'Ready to help elevate your digital product through thorough QA Testing, user-friendly UI/UX design, and memorable event management.',
+        toastEmailCopied: 'Email Kartikatranaa@gmail.com copied to clipboard!',
+        toastEmailCopyFail: 'Could not copy automatically. Email: Kartikatranaa@gmail.com'
+      }
+    };
+
+    const DATA_EN = {
+      projects: {
+        'maxchat-qa': {
+          categoryLabel: 'Internship Experience',
+          role: 'Software Quality Assurance Test Engineer (Intern)',
+          description: 'Conducted manual testing on Maxchat products and built End-to-End (E2E) automation scripts using Playwright and TypeScript. Responsible for creating test cases, reporting bugs to developers, and executing API testing using Postman.',
+          highlights: [
+            'Manual testing on Maxchat products & structured test case authoring',
+            'End-to-End (E2E) automation testing using Playwright and TypeScript',
+            'API testing with Postman and bug reporting to the development team'
+          ]
+        },
+        'fahove-uiux': {
+          categoryLabel: 'Internship Experience',
+          role: 'UI/UX Designer (Intern)',
+          description: 'Designed user interfaces and experiences in Figma by applying design systems, responsive layouts, component-based thinking, UX principles, and UX flows remotely.',
+          highlights: [
+            'Built modular UI components and design systems using Figma',
+            'Applied responsive layouts and component-based thinking',
+            'Crafted UX flows and optimized User Interface & User Experience Design (UED)'
+          ]
+        },
+        'qpon-apps': {
+          description: 'Performed comprehensive manual testing (functional & exploratory) on coupon and transaction features of Qpon Apps, created test scenarios, and documented structured bug reports for developers.',
+          highlights: [
+            'Authored comprehensive Test Cases & Test Scenarios',
+            'Documented bug reports with reproduction steps & severity levels',
+            'Verified bug fixes through Regression Testing'
+          ]
+        },
+        'sipres-jti-qa': {
+          description: 'Developed cross-platform web and mobile automation testing scripts using Selenium, Codeception, and Flutter Test, while conducting usability evaluations using SUS (System Usability Scale) and TAM (Technology Acceptance Model).',
+          highlights: [
+            'End-to-End Web Automation with Selenium & Codeception',
+            'Widget & Integration Testing using Flutter Test',
+            'User satisfaction & acceptance analysis based on SUS & TAM'
+          ]
+        },
+        'sitatib': {
+          description: 'Designed the web-based student discipline reporting system interface, implemented the Front-End using Pure PHP, and performed functional testing prior to release.',
+          highlights: [
+            'Clean UI & User Flow design in Figma',
+            'Responsive Front-End implementation using Pure PHP',
+            'Input validation and reporting flow testing'
+          ]
+        },
+        'siakreditasi-sib': {
+          description: 'Redesigned the user experience and built the Front-End interface for the D4 Business Information Systems accreditation document management system using Laravel.',
+          highlights: [
+            'Designed the accreditation document management dashboard',
+            'Integrated responsive Blade Templates in Laravel',
+            'Focused on intuitive navigation for lecturers & accreditation teams'
+          ]
+        },
+        'sipres-jti-mobile': {
+          description: 'Led project management while developing the IT Department student achievement mobile application end-to-end using Flutter & Dart.',
+          highlights: [
+            'Coordinated timelines, task distribution, and team milestones',
+            'Cross-platform mobile development using Flutter/Dart',
+            'Integrated student achievement recording and verification features'
+          ]
+        },
+        'guardly': {
+          description: 'Designed the user experience and interface of the Guardly mobile security app focusing on quick emergency access, real-time monitoring, and high-contrast visual hierarchy.',
+          highlights: [
+            'Consistent and modular mobile component Design System',
+            'Interactive prototype for security monitoring & alert flows',
+            'Optimized readability for emergency situations'
+          ]
+        }
+      },
+      organizations: [
+        'Led a department at HMTI Polinema, formulated annual work program strategies, and mentored members in executing organizational initiatives.',
+        'Coordinated external and internal communications, built relationships with stakeholders, and ensured effective event information distribution.',
+        'Managed all administration, correspondence, participant data, and administrative documentation for the SPORTIF 2024 student sports competition.',
+        'Served as program supervisor, ensuring every division operated according to SOPs, timelines, and event targets.',
+        'Managed schedule precision and rundowns for student industrial visits to keep all agendas punctual and conducive.',
+        'Supervised the selection and regeneration process for new HMTI functionaries to ensure an objective, structured, and smooth workflow.',
+        'Produced visual publication assets, managed pre-study orientation content for freshmen, and documented key event moments.',
+        'Compiled forum minutes, managed correspondence archives, and summarized recommendations from lecturer-student dialogue sessions.'
+      ],
+      competitions: [
+        {
+          workTitle: 'DiBi — AI-Based Smart App for Diabetes Patients',
+          deliverables: ['UI/UX Prototype', 'Essay', 'Scientific Poster'],
+          description: 'Won the Bronze Medal and became a national finalist with DiBi, an AI-powered smart app helping diabetes patients interactively monitor diets, blood sugar levels, and daily health recommendations.'
+        },
+        {
+          workTitle: 'Stray Animal Adoption System',
+          deliverables: ['UI/UX Prototype', 'Essay'],
+          description: 'Designed a digital adoption platform connecting shelters, volunteers, and prospective adopters through a transparent verification flow and user-friendly interface.'
+        },
+        {
+          workTitle: 'Digital Business UI/UX Design Innovation',
+          deliverables: ['UI/UX Design', 'User Research'],
+          description: 'Participated in the national business innovation and UI/UX design competition at Pradita University, sharpening user-research-driven problem solving and business feasibility.'
+        }
+      ]
+    };
+
+    function t(key) {
+      return (I18N[currentLang] && I18N[currentLang][key]) || I18N.id[key] || key;
+    }
+
+    function toggleLangMenu() {
+      const menu = document.getElementById('lang-menu');
+      const btn = document.getElementById('lang-btn');
+      if (!menu) return;
+      const isHidden = menu.classList.toggle('hidden');
+      if (btn) btn.setAttribute('aria-expanded', String(!isHidden));
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang === 'en' ? 'en' : 'id';
+      document.documentElement.lang = currentLang;
+
+      // Update tombol bahasa di header
+      const flagEl = document.getElementById('lang-btn-flag');
+      const labelEl = document.getElementById('lang-btn-label');
+      if (flagEl) flagEl.textContent = currentLang === 'id' ? '🇮🇩' : '🇬🇧';
+      if (labelEl) labelEl.textContent = currentLang === 'id' ? 'Indonesia' : 'English';
+
+      // Update status aktif pada dropdown bahasa
+      document.querySelectorAll('.lang-option-btn').forEach((btn) => {
+        const marginClass = btn.dataset.langOption === 'en' ? ' mt-1' : '';
+        if (btn.dataset.langOption === currentLang) {
+          btn.className = 'lang-option-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-navy text-cream transition-colors' + marginClass;
+        } else {
+          btn.className = 'lang-option-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-navy hover:bg-beige transition-colors' + marginClass;
+        }
+      });
+
+      // Tutup dropdown
+      const menu = document.getElementById('lang-menu');
+      const langBtn = document.getElementById('lang-btn');
+      if (menu) menu.classList.add('hidden');
+      if (langBtn) langBtn.setAttribute('aria-expanded', 'false');
+
+      // Terapkan teks statis sesuai bahasa
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        if (key) el.textContent = t(key);
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+        const key = el.getAttribute('data-i18n-html');
+        if (key) el.innerHTML = t(key);
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (key) el.setAttribute('placeholder', t(key));
+      });
+
+      // Render ulang konten dinamis
+      renderProjects();
+      renderOrganizations();
+      renderCompetitions();
+      renderCertificates();
+    }
+
+    function getLocalizedProject(project) {
+      if (currentLang === 'en' && DATA_EN.projects[project.id]) {
+        return { ...project, ...DATA_EN.projects[project.id] };
+      }
+      return project;
+    }
+
+    function getLocalizedOrg(org, idx) {
+      if (currentLang === 'en' && DATA_EN.organizations[idx]) {
+        return { ...org, description: DATA_EN.organizations[idx] };
+      }
+      return org;
+    }
+
+    function getLocalizedComp(comp, idx) {
+      if (currentLang === 'en' && DATA_EN.competitions[idx]) {
+        return { ...comp, ...DATA_EN.competitions[idx] };
+      }
+      return comp;
+    }
+
+    /**
+- Helper untuk membuat URL placeholder yang menampilkan nama file tujuan
+- jika foto lokal belum dimasukkan ke dalam folder images/
+     */
+    function getImageFallbackUrl(imagePath, width = 800, height = 500) {
+      const fileName = imagePath.replace(/^images\//, '');
+      const text = encodeURIComponent(`Simpan ${fileName}\ndi folder images`);
+      return `https://placehold.co/${width}x${height}/0B2545/FAF6F0?text=${text}`;
+    }
+
+    /**
+- Navigasi antar-halaman secara interaktif (SPA)
+     */
+    function navigateTo(pageId) {
+      currentPage = pageId;
+
+      document.querySelectorAll('.page-section').forEach((section) => {
+        section.classList.remove('active');
+      });
+      const targetPage = document.getElementById(`page-${pageId}`);
+      if (targetPage) {
+        targetPage.classList.add('active');
+      }
+
+      document.querySelectorAll('.nav-btn').forEach((btn) => {
+        if (btn.dataset.nav === pageId) {
+          btn.className = 'nav-btn px-4 py-2 rounded-full text-sm font-bold bg-navy text-cream transition-all';
+        } else {
+          btn.className = 'nav-btn px-4 py-2 rounded-full text-sm font-semibold text-navy hover:bg-beige transition-all';
+        }
+      });
+
+      document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
+        if (btn.dataset.navMobile === pageId) {
+          btn.className = 'mobile-nav-btn w-full text-left px-4 py-3 rounded-2xl text-sm font-bold bg-navy text-cream transition-colors';
+        } else {
+          btn.className = 'mobile-nav-btn w-full text-left px-4 py-3 rounded-2xl text-sm font-bold text-navy hover:bg-beige transition-colors';
+        }
+      });
+
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      refreshIcons();
+    }
+
+    /**
+- Toggle buka/tutup menu navigasi pada perangkat mobile & tablet
+     */
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+      }
+    }
+
+    /**
+- Filter kategori proyek pada halaman Projects & Experience
+     */
+    function filterProjects(category) {
+      currentProjectFilter = category;
+      document.querySelectorAll('.project-filter-btn').forEach((btn) => {
+        if (btn.dataset.projectFilter === category) {
+          btn.className = 'project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all bg-navy text-cream';
+        } else {
+          btn.className = 'project-filter-btn px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all text-navy hover:bg-beige';
+        }
+      });
+      renderProjects();
+    }
+
+    /**
+- Helper untuk menampilkan logo SVG berwarna (GitHub & Figma)
+- atau fallback ke ikon Lucide untuk ikon lainnya
+     */
+    function renderLinkIcon(iconName) {
+      if (iconName === 'github') {
+        return `
+          <svg viewBox="0 0 24 24" class="w-4 h-4 shrink-0" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="12" fill="#181717"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" transform="translate(2.4 2.4) scale(0.8)" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill="#FFFFFF"/>
+          </svg>
+        `;
+      }
+      if (iconName === 'figma') {
+        return `
+          <svg viewBox="0 0 24 24" class="w-4 h-4 shrink-0" fill="none" aria-hidden="true">
+            <path d="M8.5 2H12V9H8.5C6.567 9 5 7.433 5 5.5C5 3.567 6.567 2 8.5 2Z" fill="#F24E1E"/>
+            <path d="M12 2H15.5C17.433 2 19 3.567 19 5.5C19 7.433 17.433 9 15.5 9H12V2Z" fill="#FF7262"/>
+            <path d="M12 9H15.5C17.433 9 19 10.567 19 12.5C19 14.433 17.433 16 15.5 16C13.567 16 12 14.433 12 12.5V9Z" fill="#1ABCFE"/>
+            <path d="M8.5 9H12V16H8.5C6.567 16 5 14.433 5 12.5C5 10.567 6.567 9 8.5 9Z" fill="#A259FF"/>
+            <path d="M8.5 16H12V19.5C12 21.433 10.433 23 8.5 23C6.567 23 5 21.433 5 19.5C5 17.567 6.567 16 8.5 16Z" fill="#0ACF83"/>
+          </svg>
+        `;
+      }
+      return `<i data-lucide="${iconName}" class="w-4 h-4"></i>`;
+    }
+
+    /**
+- Render Halaman Projects & Experience (Card Grid / Timeline)
+     */
+    function renderProjects() {
+      const container = document.getElementById('projects-container');
+      if (!container) return;
+
+      const filtered = currentProjectFilter === 'all'
+        ? PORTFOLIO_DATA.projects
+        : PORTFOLIO_DATA.projects.filter((p) => p.category === currentProjectFilter);
+
+      const groups = [
+        { key: 'magang', title: t('groupMagangTitle'), badge: 'bg-coral', subtitle: t('groupMagangSub') },
+        { key: 'qa', title: t('groupQaTitle'), badge: 'bg-sun', subtitle: t('groupQaSub') },
+        { key: 'uiux-dev', title: t('groupUiuxTitle'), badge: 'bg-mint', subtitle: t('groupUiuxSub') }
+      ];
+
+      let html = '';
+      groups.forEach((group) => {
+        const items = filtered.filter((p) => p.category === group.key).map(getLocalizedProject);
+        if (items.length === 0) return;
+
+        const itemsMarkup = currentProjectView === 'grid'
+          ? `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+              ${items.map((project) => `
+                <article class="group bg-white rounded-[2rem] border-2 border-navy overflow-hidden shadow-sticker hover:-translate-y-1.5 transition-all flex flex-col">
+                  <!-- Tempat Gambar / Mockup -->
+                  <div class="relative aspect-[16/10] bg-navy overflow-hidden border-b-2 border-navy">
+                    <img
+                      src="${project.image}"
+                      alt="${project.title}"
+                      onerror="this.onerror=null; this.src='${getImageFallbackUrl(project.image, 800, 480)}'"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-cream border-2 border-navy text-navy text-xs font-extrabold shadow-sticker-sm">
+                      ${project.period}
+                    </span>
+                  </div>
+
+                  <!-- Konten Kartu -->
+                  <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <p class="text-xs font-extrabold uppercase tracking-wider text-coral">${project.role}</p>
+                      <h3 class="text-xl sm:text-2xl font-serif font-bold text-navy mt-1">${project.title}</h3>
+                      <p class="text-sm text-navy/80 mt-3 leading-relaxed">${project.description}</p>
+
+                      <!-- Tech Tags -->
+                      <div class="flex flex-wrap gap-2 mt-4">
+                        ${project.tags.map((tag) => `
+                          <span class="px-3 py-1 rounded-full bg-cream border border-navy/30 text-navy text-xs font-bold">${tag}</span>
+                        `).join('')}
+                      </div>
+                    </div>
+
+                    <!-- Tombol Aksi -->
+                    <div class="flex flex-wrap items-center gap-2.5 mt-6 pt-5 border-t-2 border-dashed border-beige-dark">
+                      <button onclick="openProjectModal('${project.id}')" class="btn-tactile inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-navy text-cream border-2 border-navy text-xs sm:text-sm font-bold shadow-sticker-sm">
+                        <i data-lucide="eye" class="w-4 h-4 text-sun"></i> Detail
+                      </button>
+                      ${project.links.map((link) => `
+                        <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="btn-tactile inline-flex items-center gap-2 px-4 py-2 rounded-full bg-beige border-2 border-navy text-navy text-xs sm:text-sm font-bold shadow-sticker-sm">
+                          ${renderLinkIcon(link.icon)} ${link.label}
+                        </a>
+                      `).join('')}
+                    </div>
+                  </div>
+                </article>
+              `).join('')}
+            </div>
+          `
+          : `
+            <div class="relative border-l-4 border-dashed border-navy/30 ml-3 sm:ml-6 space-y-8 pl-6 sm:pl-10">
+              ${items.map((project) => `
+                <article class="relative bg-white border-2 border-navy rounded-[2rem] p-6 shadow-sticker hover:-translate-y-1 transition-all">
+                  <span class="absolute -left-[37px] sm:-left-[53px] top-7 w-5 h-5 rounded-full ${group.badge} border-2 border-navy"></span>
+                  <div class="flex flex-col md:flex-row gap-6 items-start">
+                    <img
+                      src="${project.image}"
+                      alt="${project.title}"
+                      onerror="this.onerror=null; this.src='${getImageFallbackUrl(project.image, 800, 480)}'"
+                      class="w-full md:w-56 aspect-[16/10] object-cover rounded-2xl border-2 border-navy shrink-0"
+                    />
+                    <div class="flex-1">
+                      <div class="flex flex-wrap items-center gap-2 mb-2">
+                        <span class="px-3 py-1 rounded-full bg-navy text-cream text-xs font-bold">${project.period}</span>
+                        <span class="px-3 py-1 rounded-full ${group.badge} border-2 border-navy text-navy text-xs font-extrabold">${project.role}</span>
+                      </div>
+                      <h3 class="text-xl sm:text-2xl font-serif font-bold text-navy">${project.title}</h3>
+                      <p class="text-sm text-navy/80 mt-2 leading-relaxed">${project.description}</p>
+
+                      <!-- Tech Tags -->
+                      <div class="flex flex-wrap gap-2 mt-4">
+                        ${project.tags.map((tag) => `
+                          <span class="px-3 py-1 rounded-full bg-cream border border-navy/30 text-navy text-xs font-bold">${tag}</span>
+                        `).join('')}
+                      </div>
+
+                      <!-- Tombol Aksi -->
+                      <div class="flex flex-wrap items-center gap-2.5 mt-5 pt-4 border-t-2 border-dashed border-beige-dark">
+                        <button onclick="openProjectModal('${project.id}')" class="btn-tactile inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-navy text-cream border-2 border-navy text-xs sm:text-sm font-bold shadow-sticker-sm">
+                          <i data-lucide="eye" class="w-4 h-4 text-sun"></i> Detail
+                        </button>
+                        ${project.links.map((link) => `
+                          <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="btn-tactile inline-flex items-center gap-2 px-4 py-2 rounded-full bg-beige border-2 border-navy text-navy text-xs sm:text-sm font-bold shadow-sticker-sm">
+                            ${renderLinkIcon(link.icon)} ${link.label}
+                          </a>
+                        `).join('')}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              `).join('')}
+            </div>
+          `;
+
+        html += `
+          <div>
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-3 border-b-2 border-dashed border-navy/25 gap-2">
+              <div>
+                <h2 class="text-2xl sm:text-3xl font-serif font-bold text-navy">${group.title}</h2>
+                <p class="text-sm text-navy/75 mt-1">${group.subtitle}</p>
+              </div>
+              <span class="text-xs font-extrabold uppercase tracking-wider px-4 py-1.5 rounded-full ${group.badge} border-2 border-navy text-navy w-fit shadow-sticker-sm">${items.length} ${t('projectCountSuffix')}</span>
+            </div>
+
+            ${itemsMarkup}
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      refreshIcons();
+    }
+
+    /**
+- Ganti tampilan Projects antara Card Grid & Timeline
+     */
+    function setProjectView(view) {
+      currentProjectView = view;
+      const btnGrid = document.getElementById('btn-project-grid');
+      const btnTimeline = document.getElementById('btn-project-timeline');
+
+      if (view === 'grid') {
+        btnGrid.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all';
+        btnTimeline.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all';
+      } else {
+        btnTimeline.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all';
+        btnGrid.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all';
+      }
+      renderProjects();
+    }
+
+    /**
+- Render Halaman Organization (Card Grid / Timeline)
+     */
+    function renderOrganizations() {
+      const container = document.getElementById('organizations-container');
+      if (!container) return;
+
+      const orgList = PORTFOLIO_DATA.organizations.map((org, idx) => getLocalizedOrg(org, idx));
+
+      if (currentOrgView === 'grid') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${orgList.map((org, idx) => `
+              <article class="group bg-white rounded-[2rem] border-2 border-navy overflow-hidden shadow-sticker hover:-translate-y-1.5 transition-all flex flex-col">
+                <div onclick="openOrganizationModal(${idx})" class="cursor-pointer relative aspect-[16/10] bg-navy overflow-hidden border-b-2 border-navy">
+                  <img
+                    src="${org.image}"
+                    alt="${org.name}"
+                    onerror="this.onerror=null; this.src='${getImageFallbackUrl(org.image, 600, 360)}'"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-cream border-2 border-navy text-navy text-xs font-extrabold shadow-sticker-sm">
+                    ${org.period}
+                  </span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="inline-block w-fit px-3 py-1 rounded-full bg-mint border-2 border-navy text-navy text-xs font-extrabold mb-3">
+                      ${org.role}
+                    </span>
+                    <h3 class="text-xl font-serif font-bold text-navy">${org.name}</h3>
+                    <p class="text-sm text-navy/80 mt-2.5 leading-relaxed">${org.description}</p>
+                  </div>
+                  <div class="mt-5 pt-4 border-t-2 border-dashed border-beige-dark">
+                    <button onclick="openOrganizationModal(${idx})" class="btn-tactile inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-navy text-cream border-2 border-navy text-xs sm:text-sm font-bold shadow-sticker-sm">
+                      <i data-lucide="eye" class="w-4 h-4 text-sun"></i> Detail
+                    </button>
+                  </div>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="relative border-l-4 border-dashed border-navy/30 ml-3 sm:ml-6 space-y-8 pl-6 sm:pl-10">
+            ${orgList.map((org, idx) => `
+              <article class="relative bg-white border-2 border-navy rounded-[2rem] p-6 shadow-sticker hover:-translate-y-1 transition-all">
+                <span class="absolute -left-[37px] sm:-left-[53px] top-7 w-5 h-5 rounded-full bg-mint border-2 border-navy"></span>
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                  <img
+                    onclick="openOrganizationModal(${idx})"
+                    src="${org.image}"
+                    alt="${org.name}"
+                    onerror="this.onerror=null; this.src='${getImageFallbackUrl(org.image, 600, 360)}'"
+                    class="cursor-pointer w-full md:w-52 aspect-[16/10] object-cover rounded-2xl border-2 border-navy shrink-0"
+                  />
+                  <div class="flex-1">
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                      <span class="px-3 py-1 rounded-full bg-navy text-cream text-xs font-bold">${org.period}</span>
+                      <span class="px-3 py-1 rounded-full bg-mint border-2 border-navy text-navy text-xs font-extrabold">${org.role}</span>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-serif font-bold text-navy">${org.name}</h3>
+                    <p class="text-sm text-navy/80 mt-2 leading-relaxed">${org.description}</p>
+                    <div class="mt-5 pt-4 border-t-2 border-dashed border-beige-dark">
+                      <button onclick="openOrganizationModal(${idx})" class="btn-tactile inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-navy text-cream border-2 border-navy text-xs sm:text-sm font-bold shadow-sticker-sm">
+                        <i data-lucide="eye" class="w-4 h-4 text-sun"></i> Detail
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      refreshIcons();
+    }
+
+    /**
+- Ganti tampilan Organization antara Card Grid & Timeline
+     */
+    function setOrgView(view) {
+      currentOrgView = view;
+      const btnGrid = document.getElementById('btn-org-grid');
+      const btnTimeline = document.getElementById('btn-org-timeline');
+
+      if (view === 'grid') {
+        btnGrid.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all';
+        btnTimeline.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all';
+      } else {
+        btnTimeline.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all';
+        btnGrid.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all';
+      }
+      renderOrganizations();
+    }
+
+    /**
+- Render Halaman Competitions (Card Grid / Timeline)
+     */
+    function renderCompetitions() {
+      const container = document.getElementById('competitions-container');
+      if (!container) return;
+
+      const compList = PORTFOLIO_DATA.competitions.map((comp, idx) => getLocalizedComp(comp, idx));
+
+      if (currentCompView === 'grid') {
+        container.innerHTML = compList.map((comp, idx) => `
+          <article class="${comp.featured ? 'bg-navy text-cream shadow-sticker-sun' : 'bg-white text-navy shadow-sticker'} border-2 border-navy rounded-[2.25rem] overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+              <!-- Gambar Karya / Dokumentasi -->
+              <div class="lg:col-span-5 relative min-h-[240px] bg-navy-dark overflow-hidden border-b-2 lg:border-b-0 lg:border-r-2 border-navy">
+                <img
+                  src="${comp.image}"
+                  alt="${comp.title}"
+                  onerror="this.onerror=null; this.src='${getImageFallbackUrl(comp.image, 800, 500)}'"
+                  class="w-full h-full object-cover"
+                />
+                ${comp.featured ? `
+                  <div class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-sun border-2 border-navy text-navy text-xs font-extrabold shadow-sticker-sm -rotate-2">
+                    Featured Achievement
+                  </div>
+                ` : ''}
+              </div>
+
+              <!-- Deskripsi Prestasi -->
+              <div class="lg:col-span-7 p-7 sm:p-9 flex flex-col justify-between">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2.5 mb-3">
+                    <span class="px-3.5 py-1 rounded-full text-xs font-extrabold border-2 border-navy ${comp.featured ? 'bg-sun text-navy' : 'bg-mint text-navy'}">
+                      ${comp.award}
+                    </span>
+                    <span class="text-xs font-bold ${comp.featured ? 'text-cream/80' : 'text-navy/65'}">
+                      ${comp.period}
+                    </span>
+                  </div>
+
+                  <h2 class="text-2xl sm:text-3xl font-serif font-bold">${comp.title}</h2>
+                  <p class="text-sm sm:text-base font-bold mt-2 ${comp.featured ? 'text-sun' : 'text-coral'}">
+                    ${t('workPrefix')} ${comp.workTitle}
+                  </p>
+
+                  <p class="text-sm sm:text-base mt-4 leading-relaxed ${comp.featured ? 'text-cream/85' : 'text-navy/80'}">
+                    ${comp.description}
+                  </p>
+
+                  <!-- Deliverables -->
+                  <div class="flex flex-wrap gap-2 mt-5">
+                    ${comp.deliverables.map((item) => `
+                      <span class="px-3.5 py-1 rounded-full text-xs font-bold ${comp.featured ? 'bg-white/10 text-cream border border-white/25' : 'bg-cream text-navy border border-navy/30'}">
+                        ${item}
+                      </span>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-3 mt-7 pt-5 border-t-2 border-dashed ${comp.featured ? 'border-white/20' : 'border-beige-dark'}">
+                  <button onclick="openCompetitionModal(${idx})" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${comp.featured ? 'bg-sun text-navy border-sun hover:bg-cream' : 'bg-navy text-cream border-navy hover:bg-navy-light'}">
+                    <i data-lucide="eye" class="w-4 h-4"></i> ${t('viewWorkDetail')}
+                  </button>
+                  <a href="https://figma.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${comp.featured ? 'bg-white/10 text-cream hover:bg-white/20 border-white/25' : 'bg-beige text-navy border-navy hover:bg-sun'}">
+                    ${renderLinkIcon('figma')} ${t('figmaPrototype')}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        `).join('');
+      } else {
+        container.innerHTML = `
+          <div class="relative border-l-4 border-dashed border-navy/30 ml-3 sm:ml-6 space-y-8 pl-6 sm:pl-10">
+            ${compList.map((comp, idx) => `
+              <article class="relative ${comp.featured ? 'bg-navy text-cream shadow-sticker-sun' : 'bg-white text-navy shadow-sticker'} border-2 border-navy rounded-[2rem] p-6 hover:-translate-y-1 transition-all">
+                <span class="absolute -left-[37px] sm:-left-[53px] top-7 w-5 h-5 rounded-full ${comp.featured ? 'bg-sun' : 'bg-coral'} border-2 border-navy"></span>
+                <div class="flex flex-col md:flex-row gap-6 items-start">
+                  <img
+                    src="${comp.image}"
+                    alt="${comp.title}"
+                    onerror="this.onerror=null; this.src='${getImageFallbackUrl(comp.image, 800, 500)}'"
+                    class="w-full md:w-56 aspect-[16/10] object-cover rounded-2xl border-2 ${comp.featured ? 'border-sun' : 'border-navy'} shrink-0"
+                  />
+                  <div class="flex-1">
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                      <span class="px-3 py-1 rounded-full text-xs font-bold ${comp.featured ? 'bg-white/15 text-cream' : 'bg-navy text-cream'}">${comp.period}</span>
+                      <span class="px-3 py-1 rounded-full text-xs font-extrabold border-2 border-navy ${comp.featured ? 'bg-sun text-navy' : 'bg-mint text-navy'}">${comp.award}</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-serif font-bold">${comp.title}</h2>
+                    <p class="text-sm font-bold mt-1 ${comp.featured ? 'text-sun' : 'text-coral'}">${t('workPrefix')} ${comp.workTitle}</p>
+                    <p class="text-sm mt-2.5 leading-relaxed ${comp.featured ? 'text-cream/85' : 'text-navy/80'}">${comp.description}</p>
+
+                    <div class="flex flex-wrap gap-2 mt-4">
+                      ${comp.deliverables.map((item) => `
+                        <span class="px-3 py-1 rounded-full text-xs font-bold ${comp.featured ? 'bg-white/10 text-cream border border-white/25' : 'bg-cream text-navy border border-navy/30'}">
+                          ${item}
+                        </span>
+                      `).join('')}
+                    </div>
+
+                    <div class="flex flex-wrap gap-2.5 mt-5 pt-4 border-t-2 border-dashed ${comp.featured ? 'border-white/20' : 'border-beige-dark'}">
+                      <button onclick="openCompetitionModal(${idx})" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-bold border-2 transition-all ${comp.featured ? 'bg-sun text-navy border-sun hover:bg-cream' : 'bg-navy text-cream border-navy hover:bg-navy-light'}">
+                        <i data-lucide="eye" class="w-4 h-4"></i> ${t('viewWorkDetail')}
+                      </button>
+                      <a href="https://figma.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-bold border-2 transition-all ${comp.featured ? 'bg-white/10 text-cream hover:bg-white/20 border-white/25' : 'bg-beige text-navy border-navy hover:bg-sun'}">
+                        ${renderLinkIcon('figma')} ${t('figmaPrototype')}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      refreshIcons();
+    }
+
+    /**
+- Ganti tampilan Competitions antara Card Grid & Timeline
+     */
+    function setCompView(view) {
+      currentCompView = view;
+      const btnGrid = document.getElementById('btn-comp-grid');
+      const btnTimeline = document.getElementById('btn-comp-timeline');
+
+      if (view === 'grid') {
+        btnGrid.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all';
+        btnTimeline.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all';
+      } else {
+        btnTimeline.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream flex items-center gap-1.5 transition-all';
+        btnGrid.className = 'px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige flex items-center gap-1.5 transition-all';
+      }
+      renderCompetitions();
+    }
+
+    /**
+- Render Halaman Certificates
+     */
+    function renderCertificates() {
+      const container = document.getElementById('certificates-container');
+      if (!container) return;
+
+      const filtered = currentCertFilter === 'all'
+        ? PORTFOLIO_DATA.certificates
+        : PORTFOLIO_DATA.certificates.filter((c) => c.category === currentCertFilter);
+
+      const groups = [
+        { key: 'training', title: 'Training & Competency Certification', icon: 'shield-check', color: 'bg-sun' },
+        { key: 'competition', title: 'Competition Certificates', icon: 'trophy', color: 'bg-coral' },
+        { key: 'organization', title: 'Organization & Committee Certificates', icon: 'award', color: 'bg-mint' }
+      ];
+
+      let html = '';
+      groups.forEach((group) => {
+        const items = filtered.filter((c) => c.category === group.key);
+        if (items.length === 0) return;
+
+        html += `
+          <div>
+            <div class="flex items-center justify-between mb-6 pb-3 border-b-2 border-dashed border-navy/25">
+              <h2 class="text-xl sm:text-2xl font-serif font-bold text-navy flex items-center gap-3">
+                <span class="w-10 h-10 rounded-2xl ${group.color} border-2 border-navy text-navy flex items-center justify-center shrink-0 shadow-sticker-sm">
+                  <i data-lucide="${group.icon}" class="w-5 h-5"></i>
+                </span>
+                ${group.title}
+              </h2>
+              <span class="text-xs font-extrabold px-3.5 py-1 rounded-full bg-white border-2 border-navy text-navy">${items.length}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              ${items.map((cert) => {
+                const globalIndex = PORTFOLIO_DATA.certificates.indexOf(cert);
+                return `
+                  <div onclick="openCertModal(${globalIndex})" class="cursor-pointer group bg-white rounded-3xl border-2 border-navy overflow-hidden shadow-sticker-sm hover:-translate-y-1.5 hover:shadow-sticker transition-all flex flex-col">
+                    <div class="relative aspect-[10/7] bg-navy overflow-hidden border-b-2 border-navy">
+                      <img
+                        src="${cert.image}"
+                        alt="${cert.title}"
+                        onerror="this.onerror=null; this.src='${getImageFallbackUrl(cert.image, 600, 420)}'"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div class="absolute inset-0 bg-navy/0 group-hover:bg-navy/35 transition-colors flex items-center justify-center">
+                        <span class="opacity-0 group-hover:opacity-100 transition-opacity bg-sun border-2 border-navy text-navy px-3.5 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-1.5 shadow-sticker-sm">
+                          <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> ${t('previewLabel')}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                      <div>
+                        <span class="inline-block px-2.5 py-0.5 rounded-full bg-cream border border-navy/25 text-[11px] font-extrabold text-navy mb-1.5">${cert.year}</span>
+                        <h3 class="text-sm font-bold text-navy leading-snug">${cert.title}</h3>
+                      </div>
+                      <p class="text-xs font-medium text-navy/70 mt-2">${cert.issuer}</p>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      refreshIcons();
+    }
+
+    /**
+- Filter kategori sertifikat
+     */
+    function filterCertificates(category) {
+      currentCertFilter = category;
+      document.querySelectorAll('.cert-filter-btn').forEach((btn) => {
+        if (btn.dataset.certFilter === category) {
+          btn.className = 'cert-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-navy text-cream transition-all';
+        } else {
+          btn.className = 'cert-filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-navy hover:bg-beige transition-all';
+        }
+      });
+      renderCertificates();
+    }
+
+    /**
+- Helper membuat HTML slider foto (2 slide) + penanda titik untuk Modal
+- Diterapkan pada halaman Projects, Organization, dan Competitions
+     */
+    function buildModalCarouselHtml(galleryImages, altTitle) {
+      currentProjectSlideIndex = 0;
+      currentProjectSlideTotal = galleryImages.length;
+
+      return `
+        <div class="relative bg-navy">
+          <div id="project-carousel-track" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar cursor-grab active:cursor-grabbing select-none">
+            ${galleryImages.map((imgSrc, i) => `
+              <div class="w-full shrink-0 snap-center">
+                <img
+                  src="${imgSrc}"
+                  alt="${altTitle} — Foto ${i + 1}"
+                  draggable="false"
+                  onerror="this.onerror=null; this.src='${getImageFallbackUrl(imgSrc, 800, 450)}'"
+                  class="w-full aspect-[16/9] object-cover pointer-events-none"
+                />
+              </div>
+            `).join('')}
+          </div>
+
+          ${galleryImages.length > 1 ? `
+            <button type="button" onclick="moveProjectSlide(-1)" aria-label="Foto sebelumnya" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-cream/90 hover:bg-sun border-2 border-navy text-navy flex items-center justify-center shadow-sticker-sm transition-colors">
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+            <button type="button" onclick="moveProjectSlide(1)" aria-label="Foto berikutnya" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-cream/90 hover:bg-sun border-2 border-navy text-navy flex items-center justify-center shadow-sticker-sm transition-colors">
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+          ` : ''}
+        </div>
+
+        ${galleryImages.length > 1 ? `
+          <div id="project-carousel-dots" class="flex items-center justify-center gap-2 py-3 bg-cream border-b border-beige">
+            ${galleryImages.map((_, i) => `
+              <button
+                type="button"
+                onclick="goToProjectSlide(${i})"
+                aria-label="Lihat foto ${i + 1}"
+                class="project-carousel-dot h-2.5 rounded-full transition-all ${i === 0 ? 'w-6 bg-navy' : 'w-2.5 bg-navy/25 hover:bg-navy/50'}"
+              ></button>
+            `).join('')}
+          </div>
+        ` : ''}
+      `;
+    }
+
+    /**
+- Modal Detail Proyek (dengan slider 2 foto yang bisa digeser + penanda titik)
+     */
+    function openProjectModal(projectId) {
+      const rawProject = PORTFOLIO_DATA.projects.find((p) => p.id === projectId);
+      if (!rawProject) return;
+      const project = getLocalizedProject(rawProject);
+
+      const galleryImages = (project.images && project.images.length > 0)
+        ? project.images.slice(0, 2)
+        : [project.image];
+
+      const content = document.getElementById('modal-content');
+      content.innerHTML = `
+        ${buildModalCarouselHtml(galleryImages, project.title)}
+
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-3 py-1 rounded-full bg-navy text-cream text-xs font-semibold">${project.categoryLabel}</span>
+            <span class="px-3 py-1 rounded-full bg-beige text-navy text-xs font-bold">${project.period}</span>
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-serif font-bold text-navy mt-2">${project.title}</h3>
+          <p class="text-sm font-semibold text-navy/70 mt-1">${project.role}</p>
+          <p class="text-sm sm:text-base text-navy/80 mt-4 leading-relaxed">${project.description}</p>
+
+          <div class="mt-5 bg-white border border-beige rounded-2xl p-5">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-navy/60 mb-3">${t('keyContributions')}</h4>
+            <ul class="space-y-2">
+              ${project.highlights.map((h) => `
+                <li class="text-sm text-navy flex items-start gap-2.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-navy shrink-0 mt-0.5"></i>
+                  <span>${h}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+
+          <div class="flex flex-wrap gap-3 mt-6">
+            ${project.links.map((link) => `
+              <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy text-cream hover:bg-navy-light text-sm font-semibold transition-all">
+                ${renderLinkIcon(link.icon)} ${link.label}
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      showModal();
+      initProjectCarousel();
+    }
+
+    /**
+- Modal Detail Organisasi (dengan slider 2 foto yang bisa digeser + penanda titik)
+     */
+    function openOrganizationModal(index) {
+      const rawOrg = PORTFOLIO_DATA.organizations[index];
+      if (!rawOrg) return;
+      const org = getLocalizedOrg(rawOrg, index);
+
+      const galleryImages = (org.images && org.images.length > 0)
+        ? org.images.slice(0, 2)
+        : [org.image];
+
+      const content = document.getElementById('modal-content');
+      content.innerHTML = `
+        ${buildModalCarouselHtml(galleryImages, org.name)}
+
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-3 py-1 rounded-full bg-mint border-2 border-navy text-navy text-xs font-extrabold">${org.role}</span>
+            <span class="px-3 py-1 rounded-full bg-beige text-navy text-xs font-bold">${org.period}</span>
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-serif font-bold text-navy mt-2">${org.name}</h3>
+          <p class="text-sm sm:text-base text-navy/80 mt-4 leading-relaxed">${org.description}</p>
+        </div>
+      `;
+      showModal();
+      initProjectCarousel();
+    }
+
+    /**
+- Inisialisasi interaksi geser (mouse drag & scroll sync) pada slider foto Modal
+     */
+    function initProjectCarousel() {
+      const track = document.getElementById('project-carousel-track');
+      if (!track || currentProjectSlideTotal <= 1) return;
+
+      track.addEventListener('scroll', () => {
+        const width = track.clientWidth;
+        if (width > 0) {
+          const newIndex = Math.round(track.scrollLeft / width);
+          if (newIndex !== currentProjectSlideIndex) {
+            currentProjectSlideIndex = newIndex;
+            updateProjectCarouselDots();
+          }
+        }
+      }, { passive: true });
+
+      let isDragging = false;
+      let startX = 0;
+      let scrollStart = 0;
+
+      track.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollStart = track.scrollLeft;
+        track.style.scrollSnapType = 'none';
+        track.style.scrollBehavior = 'auto';
+      });
+
+      const stopDragging = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        track.style.scrollSnapType = '';
+        track.style.scrollBehavior = '';
+        const targetIndex = Math.round(track.scrollLeft / track.clientWidth);
+        goToProjectSlide(targetIndex);
+      };
+
+      track.addEventListener('mouseup', stopDragging);
+      track.addEventListener('mouseleave', stopDragging);
+      track.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        track.scrollLeft = scrollStart - (x - startX) * 1.2;
+      });
+    }
+
+    function goToProjectSlide(index) {
+      const track = document.getElementById('project-carousel-track');
+      if (!track) return;
+      const clamped = Math.max(0, Math.min(index, currentProjectSlideTotal - 1));
+      currentProjectSlideIndex = clamped;
+      track.scrollTo({ left: clamped * track.clientWidth, behavior: 'smooth' });
+      updateProjectCarouselDots();
+    }
+
+    function moveProjectSlide(delta) {
+      const nextIndex = (currentProjectSlideIndex + delta + currentProjectSlideTotal) % currentProjectSlideTotal;
+      goToProjectSlide(nextIndex);
+    }
+
+    function updateProjectCarouselDots() {
+      const dots = document.querySelectorAll('.project-carousel-dot');
+      dots.forEach((dot, i) => {
+        if (i === currentProjectSlideIndex) {
+          dot.className = 'project-carousel-dot h-2.5 w-6 rounded-full bg-navy transition-all';
+        } else {
+          dot.className = 'project-carousel-dot h-2.5 w-2.5 rounded-full bg-navy/25 hover:bg-navy/50 transition-all';
+        }
+      });
+    }
+
+    /**
+- Modal Detail Kompetisi (dengan slider 2 foto yang bisa digeser + penanda titik)
+     */
+    function openCompetitionModal(index) {
+      const rawComp = PORTFOLIO_DATA.competitions[index];
+      if (!rawComp) return;
+      const comp = getLocalizedComp(rawComp, index);
+
+      const galleryImages = (comp.images && comp.images.length > 0)
+        ? comp.images.slice(0, 2)
+        : [comp.image];
+
+      const content = document.getElementById('modal-content');
+      content.innerHTML = `
+        ${buildModalCarouselHtml(galleryImages, comp.title)}
+
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-3 py-1 rounded-full bg-navy text-cream text-xs font-bold">${comp.award}</span>
+            <span class="px-3 py-1 rounded-full bg-beige text-navy text-xs font-bold">${comp.period}</span>
+          </div>
+          <h3 class="text-2xl font-serif font-bold text-navy mt-2">${comp.title}</h3>
+          <p class="text-sm font-bold text-navy/75 mt-1">${t('workPrefix')} ${comp.workTitle}</p>
+          <p class="text-sm sm:text-base text-navy/80 mt-4 leading-relaxed">${comp.description}</p>
+          <div class="flex flex-wrap gap-2 mt-5">
+            ${comp.deliverables.map((d) => `<span class="px-3 py-1 rounded-lg bg-white border border-beige text-navy text-xs font-semibold">${d}</span>`).join('')}
+          </div>
+        </div>
+      `;
+      showModal();
+      initProjectCarousel();
+    }
+
+    /**
+- Modal Pratinjau Sertifikat
+     */
+    function openCertModal(index) {
+      const cert = PORTFOLIO_DATA.certificates[index];
+      if (!cert) return;
+
+      const content = document.getElementById('modal-content');
+      content.innerHTML = `
+        <img
+          src="${cert.image}"
+          alt="${cert.title}"
+          onerror="this.onerror=null; this.src='${getImageFallbackUrl(cert.image, 800, 500)}'"
+          class="w-full aspect-[16/10] object-cover"
+        />
+        <div class="p-6 sm:p-7">
+          <span class="px-3 py-1 rounded-full bg-beige text-navy text-xs font-bold">${cert.categoryTitle}</span>
+          <h3 class="text-2xl font-serif font-bold text-navy mt-3">${cert.title}</h3>
+          <p class="text-sm text-navy/75 mt-1">${cert.issuer} • ${t('yearLabel')} ${cert.year}</p>
+        </div>
+      `;
+      showModal();
+    }
+
+    function showModal() {
+      const modal = document.getElementById('detail-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      refreshIcons();
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('detail-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === 'detail-modal') {
+        closeModal();
+      }
+    }
+
+    /**
+- Salin email ke clipboard dengan fallback execCommand (aman untuk iFrame)
+     */
+    function copyEmail() {
+      const email = 'Kartikatranaa@gmail.com';
+      try {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = email;
+        tempInput.style.position = 'fixed';
+        tempInput.style.opacity = '0';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showToast(t('toastEmailCopied'));
+      } catch (err) {
+        showToast(t('toastEmailCopyFail'));
+      }
+    }
+
+    /**
+- Handler pengiriman form kontak terintegrasi dengan FormSubmit (AJAX)
+- Pesan dikirim langsung ke Kartikatranaa@gmail.com tanpa perlu backend server
+     */
+    async function handleContactSubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('contact-submit-btn');
+      const submitText = document.getElementById('contact-submit-text');
+
+      const name = document.getElementById('sender-name').value.trim();
+      const email = document.getElementById('sender-email').value.trim();
+      const topic = document.getElementById('sender-topic').value;
+      const message = document.getElementById('sender-message').value.trim();
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitText) submitText.textContent = t('formSending');
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+      try {
+        const formData = new FormData();
+        formData.append('Nama', name);
+        formData.append('Email', email);
+        formData.append('Topik', topic);
+        formData.append('Pesan', message);
+        formData.append('_subject', `Pesan Portofolio Baru (${topic}) — ${name}`);
+        formData.append('_template', 'table');
+        formData.append('_captcha', 'false');
+
+        const response = await fetch('https://formsubmit.co/ajax/Kartikatranaa@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: formData,
+          signal: controller.signal
+        });
+
+        const rawText = await response.text();
+        let result = {};
+        try {
+          result = JSON.parse(rawText);
+        } catch (_) {
+          result = {};
+        }
+
+        if (response.ok && (result.success === 'true' || result.success === true)) {
+          form.reset();
+          showToast(
+            currentLang === 'en'
+              ? `Thank you ${name}! Your message has been sent to Tika's email.`
+              : `Terima kasih ${name}! Pesan berhasil dikirim ke email Tika.`
+          );
+        } else {
+          throw new Error(result.message || 'Gagal mengirim pesan.');
+        }
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          showToast(
+            currentLang === 'en'
+              ? 'Connection timed out. Make sure the site is hosted online or email Kartikatranaa@gmail.com directly.'
+              : 'Waktu koneksi habis. Pastikan sudah online atau kirim langsung ke Kartikatranaa@gmail.com.'
+          );
+        } else {
+          showToast(
+            currentLang === 'en'
+              ? 'Sending failed in preview mode. Try when hosted online or email Kartikatranaa@gmail.com directly.'
+              : 'Pengiriman gagal di mode preview. Coba saat sudah di-hosting atau kirim langsung ke Kartikatranaa@gmail.com.'
+          );
+        }
+      } finally {
+        clearTimeout(timeoutId);
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitText) submitText.textContent = t('formSubmit');
+      }
+    }
+
+    /**
+- Menampilkan Toast Notification yang ramah pengguna
+     */
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      refreshIcons();
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3500);
+    }
+
+    /**
+- Inisialisasi ikon Lucide secara aman
+     */
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    }
+
+    /**
+- Render & animasi marquee logo Tools & Tech (otomatis bergerak & bisa digeser manual)
+     */
+    function initToolsMarquee() {
+      const container = document.getElementById('tools-marquee');
+      const track = document.getElementById('tools-marquee-track');
+      if (!container || !track) return;
+
+      const tools = [
+        { name: 'Selenium', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg' },
+        { name: 'Codeception', logo: 'https://codeception.com/images/logo.svg' },
+        { name: 'Flutter Test', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg' },
+        { name: 'Figma', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+        { name: 'PHP', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg' },
+        { name: 'Laravel', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg' },
+        { name: 'Canva', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg' },
+        { name: 'MS Office', logo: 'https://img.icons8.com/color/96/microsoft-office-2019.png' }
+      ];
+
+      const renderItem = (tool) => `
+        <div class="flex items-center gap-3 bg-white border-2 border-navy rounded-2xl px-5 py-3 shadow-sticker-sm shrink-0 hover:-translate-y-1 transition-transform">
+          <img src="${tool.logo}" alt="${tool.name}" onerror="this.src='https://placehold.co/40x40/0B2545/FAF6F0?text=${encodeURIComponent(tool.name.slice(0,2))}'" class="w-8 h-8 object-contain pointer-events-none" />
+          <span class="text-sm font-extrabold text-navy whitespace-nowrap">${tool.name}</span>
+        </div>
+      `;
+
+      track.innerHTML = [...tools, ...tools].map(renderItem).join('');
+
+      let isDragging = false;
+      let startX = 0;
+      let scrollStart = 0;
+      let isPaused = false;
+
+      container.addEventListener('mouseenter', () => { isPaused = true; });
+      container.addEventListener('mouseleave', () => { isPaused = false; isDragging = false; });
+
+      container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        isPaused = true;
+        startX = e.pageX - container.offsetLeft;
+        scrollStart = container.scrollLeft;
+      });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+      container.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        container.scrollLeft = scrollStart - (x - startX) * 1.4;
+      });
+
+      container.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
+      container.addEventListener('touchend', () => { isPaused = false; }, { passive: true });
+
+      function autoScroll() {
+        if (!isPaused && !isDragging) {
+          container.scrollLeft += 0.8;
+          if (container.scrollLeft >= track.scrollWidth / 2) {
+            container.scrollLeft = 0;
+          }
+        }
+        requestAnimationFrame(autoScroll);
+      }
+      requestAnimationFrame(autoScroll);
+    }
+
+    // Inisialisasi aplikasi saat halaman selesai dimuat
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProjects();
+      renderOrganizations();
+      renderCompetitions();
+      renderCertificates();
+      initToolsMarquee();
+      navigateTo('home');
+    });
+
+    // Tutup modal dengan tombol Escape & tutup dropdown bahasa saat klik di luar
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        const langMenu = document.getElementById('lang-menu');
+        if (langMenu) langMenu.classList.add('hidden');
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      const switcher = document.getElementById('lang-switcher');
+      const langMenu = document.getElementById('lang-menu');
+      const langBtn = document.getElementById('lang-btn');
+      if (switcher && langMenu && !switcher.contains(e.target)) {
+        langMenu.classList.add('hidden');
+        if (langBtn) langBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
+</body>
+</html>
